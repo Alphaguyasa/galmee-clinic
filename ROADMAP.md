@@ -27,15 +27,15 @@
 - [ ] Appointment calendar (core `bookings`, resource = doctor)
 - [ ] Lab request and result entry
 - [ ] Daily income by service
-- [ ] Migration: cl_patients
-- [ ] Migration: cl_visits
-- [ ] Migration: cl_services
-- [ ] Migration: cl_visit_services
-- [ ] Migration: cl_lab_orders
-- [ ] Migration: cl_lab_results
-- [ ] Migration: cl_attachments
-- [ ] `cl_open_visit`, `cl_add_service`, `cl_close_visit_and_bill` RPCs; billing via core `payments`/`credit_ledger`
-- [ ] Card number auto-generated per tenant
+- [x] Migration: cl_patients
+- [x] Migration: cl_visits
+- [x] Migration: cl_services
+- [x] Migration: cl_visit_services
+- [x] Migration: cl_lab_orders
+- [x] Migration: cl_lab_results
+- [x] Migration: cl_attachments
+- [x] `cl_open_visit`, `cl_add_service`, `cl_close_visit_and_bill` RPCs; billing via core `payments`/`credit_ledger`
+- [x] Card number auto-generated per tenant
 - [ ] Clinical notes visible to doctor role only; reception sees name/phone/queue; log every patient-card view
 
 ## M3: Notifications
