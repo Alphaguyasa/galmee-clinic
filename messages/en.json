@@ -1,0 +1,63 @@
+{
+  "app": {
+    "name": "Galmee Clinic",
+    "tagline": "Find any patient's history in 3 seconds instead of searching the folder room."
+  },
+  "nav": {
+    "menu": "Main menu",
+    "home": "Home"
+  },
+  "common": {
+    "language": "Language",
+    "offline": "You are offline",
+    "offlineBody": "Galmee will reconnect automatically.",
+    "retry": "Try again",
+    "today": "Today",
+    "skipToContent": "Skip to content"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "signupTitle": "Create your clinic account",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 10 characters",
+    "login": "Log in",
+    "signup": "Create account",
+    "logout": "Log out",
+    "noAccount": "New clinic?",
+    "haveAccount": "Already have an account?",
+    "checkEmail": "Check your email and open the link to confirm your account, then log in.",
+    "errorInvalid": "Wrong email or password.",
+    "errorGeneric": "Something went wrong. Please try again.",
+    "errorPassword": "Password must be at least 10 characters.",
+    "errorEmail": "Enter a valid email address."
+  },
+  "onboarding": {
+    "title": "Set up your clinic",
+    "intro": "Name your clinic to start your own patient records.",
+    "fullName": "Your full name",
+    "phone": "Phone number",
+    "submit": "Start using Galmee",
+    "error": "Could not create the clinic. Please try again.",
+    "errorPhone": "Enter an Ethiopian phone number, for example 0911 234 567.",
+    "errorRequired": "Fill in all three fields.",
+    "clinicName": "Clinic name"
+  },
+  "home": {
+    "welcome": "Welcome, {name}"
+  },
+  "roles": {
+    "owner": "Owner",
+    "manager": "Manager",
+    "staff": "Reception"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "load": "This page could not load. Check your connection and try again.",
+    "form": "Check the form and try again.",
+    "phone": "Enter an Ethiopian phone number, for example 0911 234 567.",
+    "not_allowed": "Your role cannot do this. Ask a manager.",
+    "bad_amount": "Enter a valid amount.",
+    "overpayment": "That is more than the patient owes."
+  }
+}
