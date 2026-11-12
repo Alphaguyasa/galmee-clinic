@@ -5,7 +5,8 @@
   },
   "nav": {
     "menu": "Main menu",
-    "home": "Home"
+    "home": "Home",
+    "patients": "Patients"
   },
   "common": {
     "language": "Language",
@@ -59,5 +60,37 @@
     "not_allowed": "Your role cannot do this. Ask a manager.",
     "bad_amount": "Enter a valid amount.",
     "overpayment": "That is more than the patient owes."
+  },
+  "patients": {
+    "title": "Patients",
+    "register": "Register patient",
+    "search": "Search",
+    "searchLabel": "Search patients",
+    "searchPlaceholder": "Name, phone or card number",
+    "resultsFor": "{count, plural, =0 {No patients} one {# patient} other {# patients}} for “{q}”",
+    "newest": "Newest patients",
+    "noMatch": "No patient matches. Check the spelling or register a new patient.",
+    "empty": "No patients yet. Register the first one to give them card number 1.",
+    "searchHint": "Showing the newest {count}. Search to find anyone else.",
+    "registered": "Registered. Card number {cardNo}: write it on the patient's card.",
+    "cardNo": "Card number",
+    "noDetails": "No phone or age recorded",
+    "ageYears": "{age} years",
+    "female": "Female",
+    "male": "Male",
+    "newTitle": "Register patient",
+    "newIntro": "The card number is given automatically.",
+    "backToSearch": "Back to patients",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "sex": "Sex",
+    "age": "Age in years",
+    "address": "Address",
+    "optional": "(optional)",
+    "saving": "Saving…",
+    "errorName": "Enter the patient's full name.",
+    "errorPhone": "Enter an Ethiopian phone number, for example 0911 234 567, or leave it empty.",
+    "errorAge": "Enter the age as a whole number of years, 0 to 120.",
+    "errorGeneric": "Could not register the patient. Please try again."
   }
 }
