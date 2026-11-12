@@ -1,5 +1,26 @@
 # ROADMAP: Galmee Clinic
 
+## M-next: Tier 1 clinic screens (build these first)
+
+- [ ] Patient search + register screen (`cl_register_patient`)
+- [ ] Reception queue screen (`cl_visits` by status) + open visit
+- [ ] Visit screen: add services (`cl_add_service`), running total
+- [ ] Close & bill flow (`cl_close_visit_and_bill`) + cash/Telebirr
+- [ ] Receipt (58 mm) for visit
+- [ ] Lab request form (`cl_request_lab`)
+- [ ] Lab result entry screen (`cl_enter_lab_results`), lab role only
+- [ ] Status transitions wired (waiting→doctor→lab→done)
+
+## M-after: Tier 2 and 3
+
+- [ ] Daily income by service screen
+- [ ] Patient card (visits, labs, balance) screen; attachments upload comes with this, not before
+- [ ] Appointment calendar on `bookings` + day-before SMS rows
+- [ ] Partial payment + statement
+- [ ] Telegram-to-doctor on lab completion (notifications row)
+- [ ] Clinical role assignment UI (owner)
+- [ ] Monthly report + CSV export
+
 ## M0: Foundation (shared pattern for all Galmee products)
 
 - [x] Next.js App Router + TS + Tailwind + shadcn/ui scaffold; `npm run build` passes
@@ -15,7 +36,6 @@
 ## M1: Core screens
 
 - [ ] Customers: list, search by name/phone, detail with balance
-- [ ] Items and stock (if this product uses stock): list, add, receive stock
 - [ ] Payments and credit: record payment, credit statement
 - [ ] Reports: today / this week / this Ethiopian month; export CSV
 - [ ] Offline queue for the main money action with sync status indicator
@@ -61,7 +81,7 @@
 
 ## Q: Quality and security baseline (do these inside M0 and M1, not after)
 
-- [ ] `docs/DESIGN.md` written per the frontend guidelines (palette, type with Ethiopic support, layout wireframes, reviewed against generic defaults)
+- [x] `docs/DESIGN.md` written per the frontend guidelines (palette, type with Ethiopic support, layout wireframes, reviewed against generic defaults)
 - [ ] Tailwind theme tokens and `next/font` fonts from DESIGN.md
 - [ ] `server-only` Data Access Layer in `src/server/dal/`; every Server Action validates with zod and re-checks auth + role
 - [ ] Security headers and CSP with nonce (the security guidelines section 5)
