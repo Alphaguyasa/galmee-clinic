@@ -3,7 +3,7 @@
 ## M-next: Tier 1 clinic screens (build these first)
 
 - [x] Patient search + register screen (`cl_register_patient`)
-- [ ] Reception queue screen (`cl_visits` by status) + open visit
+- [x] Reception queue screen (`cl_visits` by status) + open visit
 - [ ] Visit screen: add services (`cl_add_service`), running total
 - [ ] Close & bill flow (`cl_close_visit_and_bill`) + cash/Telebirr
 - [ ] Receipt (58 mm) for visit

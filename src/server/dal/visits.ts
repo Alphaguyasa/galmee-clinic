@@ -1,0 +1,74 @@
+import "server-only";
+import { createClient } from "@/lib/supabase/server";
+import { getSession } from "./session";
+
+import { OPEN_STATUSES, type VisitStatus } from "@/lib/visit-status";
+
+export type QueueRowDTO = {
+  id: string;
+  queueNo: number;
+  status: VisitStatus;
+  patientId: string;
+  cardNo: number;
+  fullName: string;
+  openedAt: string;
+};
+
+/** Today's date at the clinic (Addis Ababa), as stored in `cl_visits.visit_date`. */
+export function clinicToday(now = new Date()): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Addis_Ababa" }).format(now);
+}
+
+/** Today's queue in arrival order, cancelled visits left out. */
+export async function getTodayQueue(): Promise<QueueRowDTO[]> {
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("cl_visits")
+    .select("id, queue_no, status, patient_id, opened_at, cl_patients(card_no, full_name)")
+    .eq("visit_date", clinicToday())
+    .neq("status", "cancelled")
+    .order("queue_no", { ascending: true })
+    .limit(300);
+  if (error) throw new Error("queue_failed");
+  return data.map((v) => ({
+    id: v.id,
+    queueNo: v.queue_no,
+    status: v.status as VisitStatus,
+    patientId: v.patient_id,
+    cardNo: v.cl_patients?.card_no ?? 0,
+    fullName: v.cl_patients?.full_name ?? "",
+    openedAt: v.opened_at,
+  }));
+}
+
+/** Queue numbers of the open visits for these patients, keyed by patient id. */
+export async function getOpenVisits(patientIds: string[]): Promise<Map<string, number>> {
+  if (patientIds.length === 0) return new Map();
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("cl_visits")
+    .select("patient_id, queue_no")
+    .in("patient_id", patientIds)
+    .in("status", [...OPEN_STATUSES]);
+  if (error) throw new Error("open_visits_failed");
+  return new Map(data.map((v) => [v.patient_id, v.queue_no]));
+}
+
+export type OpenVisitResult = { ok: true; queueNo: number } | { ok: false; code: "alreadyOpen" | "notFound" | "generic" };
+
+export async function openVisit(input: { patientId: string; clientRef: string }): Promise<OpenVisitResult> {
+  await getSession();
+  const supabase = await createClient();
+  const { data: id, error } = await supabase.rpc("cl_open_visit", {
+    p_patient: input.patientId,
+    p_client_ref: input.clientRef,
+  });
+  if (error || !id) {
+    const msg = error?.message ?? "";
+    return { ok: false, code: msg.includes("visit_already_open") ? "alreadyOpen" : msg.includes("patient_not_found") ? "notFound" : "generic" };
+  }
+  const { data: row } = await supabase.from("cl_visits").select("queue_no").eq("id", id).maybeSingle();
+  return row ? { ok: true, queueNo: row.queue_no } : { ok: false, code: "generic" };
+}

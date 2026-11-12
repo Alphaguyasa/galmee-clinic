@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
-import { Search, UserPlus, Users } from "lucide-react";
+import { ClipboardList, Search, UserPlus, Users } from "lucide-react";
 import { CardNoTab } from "@/components/card-no-tab";
 import { EmptyState } from "@/components/galmee/empty-state";
 import { ListRow, ListSheet } from "@/components/galmee/list-row";
@@ -8,14 +8,23 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { ageInYears } from "@/lib/age";
+import { QueueButton } from "@/components/queue-button";
+import { StatusBadge } from "@/components/galmee/status-badge";
 import { searchPatients } from "@/server/dal/patients";
+import { getOpenVisits } from "@/server/dal/visits";
 import { cleanPatientQuery } from "@/server/validation";
 
 export default async function PatientsPage({ searchParams }: { searchParams: Promise<{ q?: string; new?: string }> }) {
   const params = await searchParams;
   const q = cleanPatientQuery(params.q);
   const newCardNo = Number(params.new) || null;
-  const [patients, t, format] = await Promise.all([searchPatients(q), getTranslations("patients"), getFormatter()]);
+  const [patients, t, tQueue, format] = await Promise.all([
+    searchPatients(q),
+    getTranslations("patients"),
+    getTranslations("queue"),
+    getFormatter(),
+  ]);
+  const openVisits = await getOpenVisits(patients.map((p) => p.id));
 
   return (
     <div className="grid gap-5">
@@ -84,6 +93,15 @@ export default async function PatientsPage({ searchParams }: { searchParams: Pro
                       .filter(Boolean)
                       .join(" · ") || t("noDetails")}
                   </span>
+                }
+                right={
+                  openVisits.has(p.id) ? (
+                    <StatusBadge tone="sync" icon={ClipboardList}>
+                      {tQueue("inQueue", { queueNo: openVisits.get(p.id) ?? 0 })}
+                    </StatusBadge>
+                  ) : (
+                    <QueueButton patientId={p.id} patientName={p.fullName} />
+                  )
                 }
                 className={p.cardNo === newCardNo ? "bg-accent" : undefined}
               />

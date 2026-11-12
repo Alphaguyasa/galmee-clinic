@@ -6,7 +6,8 @@
   "nav": {
     "menu": "Main menu",
     "home": "Home",
-    "patients": "Patients"
+    "patients": "Patients",
+    "queue": "Queue"
   },
   "common": {
     "language": "Language",
@@ -92,5 +93,25 @@
     "errorPhone": "Enter an Ethiopian phone number, for example 0911 234 567, or leave it empty.",
     "errorAge": "Enter the age as a whole number of years, 0 to 120.",
     "errorGeneric": "Could not register the patient. Please try again."
+  },
+  "queue": {
+    "title": "Today's queue",
+    "findPatient": "Find patient",
+    "empty": "Nobody in the queue yet. Find or register a patient and add them to today's queue.",
+    "queueNo": "Queue number",
+    "cardNo": "Card number",
+    "add": "Add to queue",
+    "addFor": "Add {name} to today's queue",
+    "adding": "Adding…",
+    "addError": "Could not add to the queue. Try again.",
+    "inQueue": "No. {queueNo}",
+    "status": {
+      "waiting": "Waiting",
+      "with_doctor": "With doctor",
+      "lab": "Lab",
+      "done": "Done",
+      "cancelled": "Cancelled"
+    },
+    "addShort": "Queue"
   }
 }

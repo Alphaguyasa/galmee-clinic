@@ -6,7 +6,8 @@
   "nav": {
     "menu": "Baafata guddaa",
     "home": "Mana",
-    "patients": "Dhukkubsattoota"
+    "patients": "Dhukkubsattoota",
+    "queue": "Tarree"
   },
   "common": {
     "language": "Afaan",
@@ -92,5 +93,25 @@
     "errorPhone": "Lakkoofsa bilbilaa Itoophiyaa galchi, fkn 0911 234 567, yookaan duwwaa dhiisi.",
     "errorAge": "Umurii waggaa guutuun galchi, 0 hanga 120.",
     "errorGeneric": "Dhukkubsataa galmeessuun hin danda'amne. Irra deebi'ii yaali."
+  },
+  "queue": {
+    "title": "Tarree har'aa",
+    "findPatient": "Dhukkubsataa barbaadi",
+    "empty": "Ammaaf tarree irra namni hin jiru. Dhukkubsataa barbaadi yookaan galmeessii tarree har'aatti galchi.",
+    "queueNo": "Lakkoofsa tarree",
+    "cardNo": "Lakkoofsa kaardii",
+    "add": "Tarreetti galchi",
+    "addFor": "{name} tarree har'aatti galchi",
+    "adding": "Galchaa jira…",
+    "addError": "Tarreetti galchuun hin danda'amne. Irra deebi'ii yaali.",
+    "inQueue": "Lak. {queueNo}",
+    "status": {
+      "waiting": "Eegaa jira",
+      "with_doctor": "Doktora biratti",
+      "lab": "Laaboraatorii",
+      "done": "Xumurameera",
+      "cancelled": "Haqameera"
+    },
+    "addShort": "Tarree"
   }
 }
