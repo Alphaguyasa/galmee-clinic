@@ -2,6 +2,13 @@
 
 Change this file first, then the code.
 
+> Clinic uses the **Galmee design system** (dev-playbook,
+> `shared/galmee/DESIGN_SYSTEM.md`). Tokens live in `src/app/globals.css`
+> (only `--trade`, record-book blue `#1B3F6B`, and the manila card-number tab
+> are clinic-specific), shared components in `src/components/galmee/`. The
+> colour and type tables below are superseded by the system; the brief, the
+> manila tab and the screen wireframes still hold.
+
 ## Brief
 
 - **Subject:** a small private clinic in Shashamane. A reception window, a bench of waiting patients, a back room of manila folders with a card number written on each tab.

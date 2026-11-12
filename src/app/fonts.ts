@@ -1,17 +1,17 @@
 import localFont from "next/font/local";
 
-// IBM Plex Sans: the plain, slightly typed look of a printed record card; clear digits for card numbers and results.
+// Atkinson Hyperlegible Next: built for legibility (I/l/1, 0/O are distinct),
+// which matters on drug names, batch numbers and amounts read in sunlight.
 export const latin = localFont({
   src: [
-    { path: "./fonts/ibm-plex-sans-latin-400-normal.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/ibm-plex-sans-latin-600-normal.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/ibm-plex-sans-latin-700-normal.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/atkinson-hyperlegible-next-latin-400-normal.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/atkinson-hyperlegible-next-latin-700-normal.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-latin",
   display: "swap",
 });
 
-// Noto Sans Ethiopic for Amharic (Ge'ez script). Latin glyphs fall through to IBM Plex first.
+// Noto Sans Ethiopic for Amharic (Ge'ez script). Latin glyphs fall through to Atkinson first.
 export const ethiopic = localFont({
   src: [
     { path: "./fonts/noto-sans-ethiopic-ethiopic-400-normal.woff2", weight: "400", style: "normal" },
