@@ -38,3 +38,13 @@ describe("patient form", () => {
     expect(patientSchema.safeParse({ ...base, age: "4.5" }).success).toBe(false);
   });
 });
+
+describe("service price", () => {
+  it("accepts birr with up to two decimals and thousands commas", async () => {
+    const { serviceSchema } = await import("@/server/validation");
+    expect(serviceSchema.parse({ name: "CBC", kind: "lab", price: "1,250.50" }).price).toBe(1250.5);
+    expect(serviceSchema.safeParse({ name: "CBC", kind: "lab", price: "-5" }).success).toBe(false);
+    expect(serviceSchema.safeParse({ name: "CBC", kind: "lab", price: "1.234" }).success).toBe(false);
+    expect(serviceSchema.safeParse({ name: "CBC", kind: "xray", price: "10" }).success).toBe(false);
+  });
+});

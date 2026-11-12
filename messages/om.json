@@ -7,7 +7,8 @@
     "menu": "Baafata guddaa",
     "home": "Mana",
     "patients": "Dhukkubsattoota",
-    "queue": "Tarree"
+    "queue": "Tarree",
+    "services": "Gatii"
   },
   "common": {
     "language": "Afaan",
@@ -123,6 +124,35 @@
     "closedNote": "Daawwannaan kun cufameera.",
     "errorNotAllowed": "Daawwannaa tajaajilli irratti galmaa'e haquu kan danda'u abbaa qabeenyaa yookaan hoogganaa qofa.",
     "errorClosed": "Daawwannaan kun duraan cufameera.",
+    "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
+  },
+  "services": {
+    "title": "Tajaajilaafi gatii",
+    "intro": "Daawwannaan hundi tarree kana irraa kaffalama. Simannaan gatii ni arga, garuu jijjiiruu hin danda'u.",
+    "empty": "Ammaaf tajaajilli hin jiru. Mariisisa doktoraa, qorannoo laaboraatoriifi yaala gatii isaanii wajjin galchi.",
+    "emptyStaff": "Ammaaf tajaajilli hin jiru. Abbaan qabeenyaa tarree gatii akka galchu gaafadhu.",
+    "inactive": "hin kennamu",
+    "deactivate": "Kennuu dhaabi",
+    "activate": "Irra deebi'ii kenni",
+    "addTitle": "Tajaajila dabaluu",
+    "name": "Maqaa tajaajilaa",
+    "namePlaceholder": "fkn Mariisisa, CBC, Qorannoo busaa",
+    "kind": "Gosa",
+    "kinds": {
+      "consultation": "Mariisisa doktoraa",
+      "lab": "Qorannoo laaboraatorii",
+      "procedure": "Yaala",
+      "other": "Kan biraa"
+    },
+    "price": "Gatii",
+    "birr": "birr",
+    "add": "Tajaajila dabali",
+    "saving": "Olkaa'aa jira…",
+    "added": "Tajaajilli dabalameera.",
+    "errorName": "Maqaa tajaajilaa qubee 2 ol qabu galchi.",
+    "errorPrice": "Gatii birriin galchi, fkn 150 yookaan 150.50.",
+    "errorDuplicate": "Tajaajilli maqaa kanaan duraan jira.",
+    "errorNotAllowed": "Gatii jijjiiruu kan danda'u abbaa qabeenyaa yookaan hoogganaa qofa.",
     "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
   }
 }

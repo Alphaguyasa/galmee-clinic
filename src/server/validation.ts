@@ -58,3 +58,17 @@ export function cleanPatientQuery(raw: unknown): string {
     .trim()
     .slice(0, 60);
 }
+
+export const SERVICE_KINDS = ["consultation", "lab", "procedure", "other"] as const;
+
+export const serviceSchema = z.object({
+  name: z.string().trim().min(2).max(120),
+  kind: z.enum(SERVICE_KINDS),
+  price: z
+    .string()
+    .trim()
+    .transform((v) => v.replace(/,/g, ""))
+    .pipe(z.string().regex(/^\d{1,9}(\.\d{1,2})?$/))
+    .transform(Number),
+});
+export type ServiceInput = z.output<typeof serviceSchema>;

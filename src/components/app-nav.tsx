@@ -1,12 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ClipboardList, Users } from "lucide-react";
+import { ClipboardList, ListChecks, Users } from "lucide-react";
 import { BottomNav } from "@/components/galmee/bottom-nav";
 
 const ITEMS = [
   { href: "/", key: "queue", icon: ClipboardList, manager: false },
   { href: "/patients", key: "patients", icon: Users, manager: false },
+  { href: "/services", key: "services", icon: ListChecks, manager: false },
 ] as const;
 
 /** Clinic destinations in the shared Galmee nav; manager-only items hide for staff. */

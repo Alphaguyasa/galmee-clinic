@@ -7,7 +7,8 @@
     "menu": "Main menu",
     "home": "Home",
     "patients": "Patients",
-    "queue": "Queue"
+    "queue": "Queue",
+    "services": "Prices"
   },
   "common": {
     "language": "Language",
@@ -123,6 +124,35 @@
     "closedNote": "This visit is closed.",
     "errorNotAllowed": "Only the owner or a manager can cancel a visit that already has services on it.",
     "errorClosed": "This visit is already closed.",
+    "errorGeneric": "Could not save. Try again."
+  },
+  "services": {
+    "title": "Services and prices",
+    "intro": "Every visit is billed from this list. Reception sees the prices but cannot change them.",
+    "empty": "No services yet. Add consultation, lab tests and procedures with their prices.",
+    "emptyStaff": "No services yet. Ask the owner to add the price list.",
+    "inactive": "not offered",
+    "deactivate": "Stop offering",
+    "activate": "Offer again",
+    "addTitle": "Add a service",
+    "name": "Service name",
+    "namePlaceholder": "e.g. Consultation, CBC, Malaria test",
+    "kind": "Type",
+    "kinds": {
+      "consultation": "Consultation",
+      "lab": "Lab test",
+      "procedure": "Procedure",
+      "other": "Other"
+    },
+    "price": "Price",
+    "birr": "birr",
+    "add": "Add service",
+    "saving": "Saving…",
+    "added": "Service added.",
+    "errorName": "Enter a service name of at least 2 letters.",
+    "errorPrice": "Enter the price in birr, for example 150 or 150.50.",
+    "errorDuplicate": "A service with this name already exists.",
+    "errorNotAllowed": "Only the owner or a manager can change prices.",
     "errorGeneric": "Could not save. Try again."
   }
 }
