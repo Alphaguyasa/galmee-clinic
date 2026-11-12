@@ -119,3 +119,50 @@ export async function setVisitStatus(input: { visitId: string; status: MovableSt
   const msg = error.message;
   return { ok: false, code: msg.includes("visit_closed") ? "closed" : msg.includes("not_allowed") ? "notAllowed" : "generic" };
 }
+
+export type VisitLineDTO = { id: string; serviceName: string; kind: string; qty: number; unitPrice: number; lineTotal: number };
+
+/** Billable lines still on the visit (reversed lines left out). */
+export async function getVisitLines(visitId: string): Promise<VisitLineDTO[]> {
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("cl_visit_services")
+    .select("id, service_name, kind, qty, unit_price, line_total")
+    .eq("visit_id", visitId)
+    .is("reversed_at", null)
+    .order("created_at", { ascending: true });
+  if (error) throw new Error("visit_lines_failed");
+  return data.map((l) => ({
+    id: l.id,
+    serviceName: l.service_name,
+    kind: l.kind,
+    qty: Number(l.qty),
+    unitPrice: Number(l.unit_price),
+    lineTotal: Number(l.line_total ?? 0),
+  }));
+}
+
+export type LineResult = { ok: true } | { ok: false; code: "closed" | "notFound" | "generic" };
+
+function lineError(message: string): LineResult {
+  return { ok: false, code: message.includes("visit_closed") ? "closed" : message.includes("not_found") ? "notFound" : "generic" };
+}
+
+export async function addVisitService(input: { visitId: string; serviceId: string; clientRef: string }): Promise<LineResult> {
+  await getSession();
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("cl_add_service", {
+    p_visit: input.visitId,
+    p_service: input.serviceId,
+    p_client_ref: input.clientRef,
+  });
+  return error ? lineError(error.message) : { ok: true };
+}
+
+export async function reverseVisitService(lineId: string): Promise<LineResult> {
+  await getSession();
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("cl_reverse_service", { p_line: lineId });
+  return error ? lineError(error.message) : { ok: true };
+}

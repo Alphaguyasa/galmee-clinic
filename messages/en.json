@@ -124,7 +124,14 @@
     "closedNote": "This visit is closed.",
     "errorNotAllowed": "Only the owner or a manager can cancel a visit that already has services on it.",
     "errorClosed": "This visit is already closed.",
-    "errorGeneric": "Could not save. Try again."
+    "errorGeneric": "Could not save. Try again.",
+    "services": "Services",
+    "noServices": "No services on this visit yet.",
+    "total": "Total",
+    "noPriceList": "The price list is empty. The owner adds services under Prices.",
+    "addService": "Add service",
+    "chooseService": "Choose a service…",
+    "removeLine": "Take {name} off this visit"
   },
   "services": {
     "title": "Services and prices",

@@ -124,7 +124,14 @@
     "closedNote": "Daawwannaan kun cufameera.",
     "errorNotAllowed": "Daawwannaa tajaajilli irratti galmaa'e haquu kan danda'u abbaa qabeenyaa yookaan hoogganaa qofa.",
     "errorClosed": "Daawwannaan kun duraan cufameera.",
-    "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
+    "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali.",
+    "services": "Tajaajila",
+    "noServices": "Daawwannaa kana irratti ammaaf tajaajilli hin jiru.",
+    "total": "Ida'ama",
+    "noPriceList": "Tarreen gatii duwwaa dha. Abbaan qabeenyaa “Gatii” jalatti tajaajila galcha.",
+    "addService": "Tajaajila dabali",
+    "chooseService": "Tajaajila filadhu…",
+    "removeLine": "{name} daawwannaa kana irraa kaasi"
   },
   "services": {
     "title": "Tajaajilaafi gatii",

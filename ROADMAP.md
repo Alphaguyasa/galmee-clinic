@@ -5,7 +5,7 @@
 - [x] Patient search + register screen (`cl_register_patient`)
 - [x] Reception queue screen (`cl_visits` by status) + open visit
 - [x] Price list of services (owner/manager edit, reception reads)
-- [ ] Visit screen: add services (`cl_add_service`), running total
+- [x] Visit screen: add services (`cl_add_service`), running total
 - [ ] Close & bill flow (`cl_close_visit_and_bill`) + cash/Telebirr
 - [ ] Receipt (58 mm) for visit
 - [ ] Lab request form (`cl_request_lab`)
