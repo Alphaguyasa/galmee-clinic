@@ -65,6 +65,7 @@ export default async function QueuePage() {
           {ordered.map((v) => (
             <ListRow
               key={v.id}
+              href={`/visits/${v.id}`}
               mark={
                 <span className="num grid size-10 place-items-center rounded-md bg-primary text-lg font-bold text-primary-foreground">
                   <span className="sr-only">{t("queueNo")} </span>

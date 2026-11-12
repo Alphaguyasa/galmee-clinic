@@ -9,7 +9,7 @@
 - [ ] Receipt (58 mm) for visit
 - [ ] Lab request form (`cl_request_lab`)
 - [ ] Lab result entry screen (`cl_enter_lab_results`), lab role only
-- [ ] Status transitions wired (waiting→doctor→lab→done)
+- [x] Status transitions wired (waiting→doctor→lab; done comes from billing)
 
 ## M-after: Tier 2 and 3
 

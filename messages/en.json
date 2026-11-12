@@ -113,5 +113,16 @@
       "cancelled": "Cancelled"
     },
     "addShort": "Queue"
+  },
+  "visit": {
+    "backToQueue": "Back to the queue",
+    "moveTo": "Move this patient to",
+    "cancelVisit": "Cancel visit",
+    "cancelConfirm": "Cancel this visit? The patient leaves today's queue. Use this when they went home without being seen.",
+    "keep": "Keep visit",
+    "closedNote": "This visit is closed.",
+    "errorNotAllowed": "Only the owner or a manager can cancel a visit that already has services on it.",
+    "errorClosed": "This visit is already closed.",
+    "errorGeneric": "Could not save. Try again."
   }
 }

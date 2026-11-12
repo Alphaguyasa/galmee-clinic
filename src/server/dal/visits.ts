@@ -2,7 +2,7 @@ import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { getSession } from "./session";
 
-import { OPEN_STATUSES, type VisitStatus } from "@/lib/visit-status";
+import { OPEN_STATUSES, type MovableStatus, type VisitStatus } from "@/lib/visit-status";
 
 export type QueueRowDTO = {
   id: string;
@@ -71,4 +71,51 @@ export async function openVisit(input: { patientId: string; clientRef: string })
   }
   const { data: row } = await supabase.from("cl_visits").select("queue_no").eq("id", id).maybeSingle();
   return row ? { ok: true, queueNo: row.queue_no } : { ok: false, code: "generic" };
+}
+
+export type VisitDTO = {
+  id: string;
+  queueNo: number;
+  status: VisitStatus;
+  visitDate: string;
+  servicesTotal: number;
+  paidTotal: number;
+  patient: { id: string; cardNo: number; fullName: string; phone: string | null };
+};
+
+export async function getVisit(id: string): Promise<VisitDTO | null> {
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("cl_visits")
+    .select("id, queue_no, status, visit_date, services_total, paid_total, cl_patients(id, card_no, full_name, phone)")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new Error("visit_failed");
+  if (!data || !data.cl_patients) return null;
+  return {
+    id: data.id,
+    queueNo: data.queue_no,
+    status: data.status as VisitStatus,
+    visitDate: data.visit_date,
+    servicesTotal: Number(data.services_total),
+    paidTotal: Number(data.paid_total),
+    patient: {
+      id: data.cl_patients.id,
+      cardNo: data.cl_patients.card_no,
+      fullName: data.cl_patients.full_name,
+      phone: data.cl_patients.phone,
+    },
+  };
+}
+
+export type SetStatusResult = { ok: true } | { ok: false; code: "closed" | "notAllowed" | "generic" };
+
+export async function setVisitStatus(input: { visitId: string; status: MovableStatus }): Promise<SetStatusResult> {
+  await getSession();
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("cl_set_visit_status", { p_visit: input.visitId, p_status: input.status });
+  if (!error) return { ok: true };
+  const msg = error.message;
+  return { ok: false, code: msg.includes("visit_closed") ? "closed" : msg.includes("not_allowed") ? "notAllowed" : "generic" };
 }

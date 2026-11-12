@@ -113,5 +113,16 @@
       "cancelled": "Haqameera"
     },
     "addShort": "Tarree"
+  },
+  "visit": {
+    "backToQueue": "Gara tarreetti deebi'i",
+    "moveTo": "Dhukkubsataa kana gara kanaatti dabarsi",
+    "cancelVisit": "Daawwannaa haqi",
+    "cancelConfirm": "Daawwannaan kun haqamuu? Dhukkubsataan tarree har'aa keessaa ba'a. Utuu hin ilaalamin mana yoo deeme fayyadami.",
+    "keep": "Daawwannaa tursi",
+    "closedNote": "Daawwannaan kun cufameera.",
+    "errorNotAllowed": "Daawwannaa tajaajilli irratti galmaa'e haquu kan danda'u abbaa qabeenyaa yookaan hoogganaa qofa.",
+    "errorClosed": "Daawwannaan kun duraan cufameera.",
+    "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
   }
 }
