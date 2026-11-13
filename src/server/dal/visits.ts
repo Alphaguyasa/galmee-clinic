@@ -80,6 +80,7 @@ export type VisitDTO = {
   visitDate: string;
   servicesTotal: number;
   paidTotal: number;
+  debtPosted: number;
   patient: { id: string; cardNo: number; fullName: string; phone: string | null };
 };
 
@@ -88,7 +89,7 @@ export async function getVisit(id: string): Promise<VisitDTO | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cl_visits")
-    .select("id, queue_no, status, visit_date, services_total, paid_total, cl_patients(id, card_no, full_name, phone)")
+    .select("id, queue_no, status, visit_date, services_total, paid_total, debt_posted, cl_patients(id, card_no, full_name, phone)")
     .eq("id", id)
     .maybeSingle();
   if (error) throw new Error("visit_failed");
@@ -100,6 +101,7 @@ export async function getVisit(id: string): Promise<VisitDTO | null> {
     visitDate: data.visit_date,
     servicesTotal: Number(data.services_total),
     paidTotal: Number(data.paid_total),
+    debtPosted: Number(data.debt_posted),
     patient: {
       id: data.cl_patients.id,
       cardNo: data.cl_patients.card_no,
@@ -165,4 +167,54 @@ export async function reverseVisitService(lineId: string): Promise<LineResult> {
   const supabase = await createClient();
   const { error } = await supabase.rpc("cl_reverse_service", { p_line: lineId });
   return error ? lineError(error.message) : { ok: true };
+}
+
+/** Lab orders on this visit still waiting for results; billing is refused while any is open. */
+export async function countPendingLabs(visitId: string): Promise<number> {
+  await getSession();
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("cl_lab_orders")
+    .select("id", { count: "exact", head: true })
+    .eq("visit_id", visitId)
+    .eq("status", "requested");
+  // Reception cannot read lab orders (RLS); the database still blocks billing, so 0 here is safe.
+  if (error) return 0;
+  return count ?? 0;
+}
+
+export type CloseResult =
+  | { ok: true }
+  | { ok: false; code: "closed" | "labPending" | "overpayment" | "balanceDue" | "generic" };
+
+export async function closeVisitAndBill(input: {
+  visitId: string;
+  paid: number;
+  method: "cash" | "telebirr";
+  reference?: string;
+  due?: string;
+  closeRef: string;
+}): Promise<CloseResult> {
+  await getSession();
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("cl_close_visit_and_bill", {
+    p_visit: input.visitId,
+    p_paid: input.paid,
+    p_method: input.method,
+    p_reference: input.reference,
+    p_due: input.due,
+    p_close_ref: input.closeRef,
+  });
+  if (!error) return { ok: true };
+  const msg = error.message;
+  const code = msg.includes("visit_closed")
+    ? "closed"
+    : msg.includes("lab_pending")
+      ? "labPending"
+      : msg.includes("overpayment")
+        ? "overpayment"
+        : msg.includes("balance_due")
+          ? "balanceDue"
+          : "generic";
+  return { ok: false, code };
 }

@@ -7,18 +7,22 @@ import { CardNoTab } from "@/components/card-no-tab";
 import { VisitStatusBadge } from "@/components/visit-status-badge";
 import { VisitStatusControl } from "@/components/visit-status-control";
 import { VisitServices } from "@/components/visit-services";
+import { CloseVisit } from "@/components/close-visit";
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { formatBirr } from "@/lib/money";
 import { listServices } from "@/server/dal/services";
-import { getVisit, getVisitLines } from "@/server/dal/visits";
+import { getSession } from "@/server/dal/session";
+import { countPendingLabs, getVisit, getVisitLines } from "@/server/dal/visits";
 
 export default async function VisitPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!z.string().uuid().safeParse(id).success) notFound();
-  const [visit, lines, services, t, tQueue, rawLocale] = await Promise.all([
+  const [session, visit, lines, services, pendingLabs, t, tQueue, rawLocale] = await Promise.all([
+    getSession(),
     getVisit(id),
     getVisitLines(id),
     listServices(),
+    countPendingLabs(id),
     getTranslations("visit"),
     getTranslations("queue"),
     getLocale(),
@@ -76,7 +80,34 @@ export default async function VisitPage({ params }: { params: Promise<{ id: stri
         )}
       </section>
 
-      {open ? null : (
+      {open ? (
+        <section aria-label={t("closeAndBill")} className="grid gap-2">
+          <CloseVisit
+            key={visit.servicesTotal}
+            visitId={visit.id}
+            total={visit.servicesTotal}
+            canCredit={session.profile.role === "owner" || session.profile.role === "manager"}
+            labPending={pendingLabs > 0}
+          />
+        </section>
+      ) : visit.status === "done" ? (
+        <section aria-labelledby="bill" className="grid gap-2 rounded-md border bg-card p-4">
+          <h2 id="bill" className="text-lg font-bold">
+            {t("billSummary")}
+          </h2>
+          <div className="flex items-baseline justify-between">
+            <span>{t("billPaidLabel")}</span>
+            <span className="num font-semibold">{formatBirr(visit.paidTotal, locale)}</span>
+          </div>
+          {visit.debtPosted > 0 ? (
+            <div className="flex items-baseline justify-between text-warning">
+              <span>{t("billCreditLabel")}</span>
+              <span className="num font-semibold">{formatBirr(visit.debtPosted, locale)}</span>
+            </div>
+          ) : null}
+          <p className="text-sm text-muted-foreground">{t("closedNote")}</p>
+        </section>
+      ) : (
         <p className="rounded-md border bg-card p-4 text-sm text-muted-foreground">{t("closedNote")}</p>
       )}
     </div>

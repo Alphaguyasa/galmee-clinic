@@ -72,3 +72,25 @@ export const serviceSchema = z.object({
     .transform(Number),
 });
 export type ServiceInput = z.output<typeof serviceSchema>;
+
+const birrAmount = z
+  .string()
+  .trim()
+  .transform((v) => v.replace(/,/g, ""))
+  .pipe(z.string().regex(/^\d{1,9}(\.\d{1,2})?$/))
+  .transform(Number);
+
+export const PAY_METHODS = ["cash", "telebirr"] as const;
+
+/** Close-and-bill form. A Telebirr payment needs its transaction number; a due date only matters when part is left on credit. */
+export const closeVisitSchema = z
+  .object({
+    visitId: z.string().uuid(),
+    paid: birrAmount,
+    method: z.enum(PAY_METHODS),
+    reference: optionalText(60),
+    due: z.union([z.literal("").transform(() => undefined), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)]),
+    closeRef: z.string().uuid(),
+  })
+  .refine((v) => v.method !== "telebirr" || v.paid === 0 || Boolean(v.reference), { path: ["reference"] });
+export type CloseVisitInput = z.output<typeof closeVisitSchema>;

@@ -4,8 +4,11 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { getSession } from "@/server/dal/session";
 import { MOVABLE_STATUSES } from "@/lib/visit-status";
+import { closeVisitSchema } from "@/server/validation";
 import {
   addVisitService,
+  closeVisitAndBill,
+  type CloseResult,
   openVisit,
   reverseVisitService,
   setVisitStatus,
@@ -62,5 +65,22 @@ export async function removeLine(input: unknown): Promise<LineResult> {
   await getSession();
   const result = await reverseVisitService(parsed.data.lineId);
   if (result.ok) revalidatePath(`/visits/${parsed.data.visitId}`);
+  return result;
+}
+
+export type CloseActionResult = CloseResult | { ok: false; code: "reference" | "amount" };
+
+export async function closeAndBill(input: unknown): Promise<CloseActionResult> {
+  const parsed = closeVisitSchema.safeParse(input);
+  if (!parsed.success) {
+    const field = parsed.error.issues[0]?.path[0];
+    return { ok: false, code: field === "reference" ? "reference" : field === "paid" ? "amount" : "generic" };
+  }
+  await getSession();
+  const result = await closeVisitAndBill(parsed.data);
+  if (result.ok || result.code === "closed") {
+    revalidatePath("/");
+    revalidatePath(`/visits/${parsed.data.visitId}`);
+  }
   return result;
 }
