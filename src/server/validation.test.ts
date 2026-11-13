@@ -34,3 +34,18 @@ describe("closeVisitSchema", () => {
     expect(closeVisitSchema.safeParse({ ...base, paid: "10", method: "chapa" }).success).toBe(false);
   });
 });
+
+describe("labRequestSchema", () => {
+  const ids = { visitId: base.visitId, serviceId: base.closeRef, clientRef: base.visitId };
+  it("drops an empty note and keeps a real one trimmed", async () => {
+    const { labRequestSchema } = await import("./validation");
+    const empty = labRequestSchema.safeParse({ ...ids, note: "  " });
+    expect(empty.success && empty.data.note).toBe(undefined);
+    const note = labRequestSchema.safeParse({ ...ids, note: " fasting " });
+    expect(note.success && note.data.note).toBe("fasting");
+  });
+  it("rejects a note over 500 characters", async () => {
+    const { labRequestSchema } = await import("./validation");
+    expect(labRequestSchema.safeParse({ ...ids, note: "x".repeat(501) }).success).toBe(false);
+  });
+});

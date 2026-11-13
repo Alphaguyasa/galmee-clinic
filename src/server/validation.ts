@@ -94,3 +94,10 @@ export const closeVisitSchema = z
   })
   .refine((v) => v.method !== "telebirr" || v.paid === 0 || Boolean(v.reference), { path: ["reference"] });
 export type CloseVisitInput = z.output<typeof closeVisitSchema>;
+
+export const labRequestSchema = z.object({
+  visitId: z.string().uuid(),
+  serviceId: z.string().uuid(),
+  note: optionalText(500),
+  clientRef: z.string().uuid(),
+});

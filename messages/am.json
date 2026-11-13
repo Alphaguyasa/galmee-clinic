@@ -159,7 +159,21 @@
     "billPaidLabel": "የተከፈለ",
     "billCreditLabel": "በዱቤ",
     "receiptTitle": "ደረሰኝ",
-    "receiptPrint": "ደረሰኝ አትም"
+    "receiptPrint": "ደረሰኝ አትም",
+    "labs": "የላብ ምርመራዎች",
+    "labsNone": "በዚህ ጉብኝት የታዘዘ የላብ ምርመራ የለም።",
+    "labsNoPriceList": "በዋጋ ዝርዝሩ ላይ የላብራቶሪ ምርመራ የለም። ባለቤቱ በዋጋዎች ስር «የላብራቶሪ ምርመራ» ዓይነት አድርጎ ይጨምራል።",
+    "labRequest": "የላብ ምርመራ እዘዝ",
+    "labChoose": "ምርመራ ምረጥ…",
+    "labNote": "ለላብ ማስታወሻ",
+    "labSend": "ወደ ላብ ላክ",
+    "labStatus": {
+      "requested": "በመጠባበቅ ላይ",
+      "completed": "ውጤት ገብቷል",
+      "cancelled": "ተሰርዟል"
+    },
+    "labErrorNotAllowed": "የላብ ምርመራ ማዘዝ የሚችለው ሐኪም ብቻ ነው።",
+    "labErrorNotFound": "ይህ ምርመራ ከዋጋ ዝርዝሩ ወጥቷል።"
   },
   "services": {
     "title": "አገልግሎቶችና ዋጋዎች",

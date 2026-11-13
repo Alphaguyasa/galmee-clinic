@@ -159,7 +159,21 @@
     "billPaidLabel": "Paid",
     "billCreditLabel": "On credit",
     "receiptTitle": "Receipt",
-    "receiptPrint": "Print receipt"
+    "receiptPrint": "Print receipt",
+    "labs": "Lab tests",
+    "labsNone": "No lab tests ordered on this visit.",
+    "labsNoPriceList": "No lab tests on the price list. The owner adds them under Prices with type Lab test.",
+    "labRequest": "Order a lab test",
+    "labChoose": "Choose a test…",
+    "labNote": "Note for the lab",
+    "labSend": "Send to lab",
+    "labStatus": {
+      "requested": "Waiting",
+      "completed": "Result in",
+      "cancelled": "Cancelled"
+    },
+    "labErrorNotAllowed": "Only a doctor can order lab tests.",
+    "labErrorNotFound": "This test is no longer on the price list."
   },
   "services": {
     "title": "Services and prices",

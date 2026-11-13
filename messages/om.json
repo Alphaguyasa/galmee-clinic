@@ -159,7 +159,21 @@
     "billPaidLabel": "Kaffalame",
     "billCreditLabel": "Liqiidhaan",
     "receiptTitle": "Nagahee",
-    "receiptPrint": "Nagahee maxxansi"
+    "receiptPrint": "Nagahee maxxansi",
+    "labs": "Qorannoo laabraatoorii",
+    "labsNone": "Daawwannaa kana irratti qorannoon laabraatoorii hin ajajamne.",
+    "labsNoPriceList": "Tarree gatii irratti qorannoon laabraatoorii hin jiru. Abbaan qabeenyaa Gatiiwwan jalatti gosa Qorannoo laabraatoorii jedhuun dabala.",
+    "labRequest": "Qorannoo laabraatoorii ajaji",
+    "labChoose": "Qorannoo filadhu…",
+    "labNote": "Yaadannoo laabraatooriif",
+    "labSend": "Gara laabraatooriitti ergi",
+    "labStatus": {
+      "requested": "Eegaa jira",
+      "completed": "Bu'aan gale",
+      "cancelled": "Haqameera"
+    },
+    "labErrorNotAllowed": "Qorannoo laabraatoorii ajajuu kan danda'u doktora qofa.",
+    "labErrorNotFound": "Qorannoon kun tarree gatii irraa ba'eera."
   },
   "services": {
     "title": "Tajaajilaafi gatii",

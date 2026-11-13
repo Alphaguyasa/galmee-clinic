@@ -8,7 +8,7 @@
 - [x] Visit screen: add services (`cl_add_service`), running total
 - [x] Close & bill flow (`cl_close_visit_and_bill`) + cash/Telebirr
 - [x] Receipt (58 mm) for visit
-- [ ] Lab request form (`cl_request_lab`)
+- [x] Lab request form (`cl_request_lab`)
 - [ ] Lab result entry screen (`cl_enter_lab_results`), lab role only
 - [x] Status transitions wired (waiting→doctor→lab; done comes from billing)
 

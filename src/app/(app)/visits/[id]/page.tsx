@@ -9,6 +9,9 @@ import { VisitStatusControl } from "@/components/visit-status-control";
 import { VisitServices } from "@/components/visit-services";
 import { CloseVisit } from "@/components/close-visit";
 import { VisitReceipt } from "@/components/visit-receipt";
+import { VisitLabs } from "@/components/visit-labs";
+import { getClinicalRoles } from "@/server/dal/clinical-roles";
+import { getVisitLabOrders } from "@/server/dal/labs";
 import { formatEthiopianDate } from "@/lib/ethiopian-date";
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { formatBirr } from "@/lib/money";
@@ -19,13 +22,15 @@ import { countPendingLabs, getVisit, getVisitLines, getVisitPayments } from "@/s
 export default async function VisitPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!z.string().uuid().safeParse(id).success) notFound();
-  const [session, visit, lines, services, pendingLabs, payments, t, tQueue, rawLocale] = await Promise.all([
+  const [session, roles, visit, lines, services, pendingLabs, payments, labOrders, t, tQueue, rawLocale] = await Promise.all([
     getSession(),
+    getClinicalRoles(),
     getVisit(id),
     getVisitLines(id),
     listServices(),
     countPendingLabs(id),
     getVisitPayments(id),
+    getVisitLabOrders(id),
     getTranslations("visit"),
     getTranslations("queue"),
     getLocale(),
@@ -33,6 +38,8 @@ export default async function VisitPage({ params }: { params: Promise<{ id: stri
   if (!visit) notFound();
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const open = visit.status === "waiting" || visit.status === "with_doctor" || visit.status === "lab";
+  const isDoctor = roles.has("doctor");
+  const seesLabs = isDoctor || roles.has("lab");
 
   return (
     <div className="mx-auto grid w-full max-w-xl gap-6 *:min-w-0">
@@ -82,6 +89,22 @@ export default async function VisitPage({ params }: { params: Promise<{ id: stri
           </div>
         )}
       </section>
+
+      {seesLabs && (labOrders.length > 0 || (open && isDoctor)) ? (
+        <section aria-labelledby="labs" className="grid gap-3 rounded-md border bg-card p-4">
+          <h2 id="labs" className="text-lg font-bold">
+            {t("labs")}
+          </h2>
+          <VisitLabs
+            visitId={visit.id}
+            orders={labOrders.map((o) => ({ id: o.id, testName: o.testName, note: o.note, status: o.status }))}
+            options={services
+              .filter((s) => s.active && s.kind === "lab")
+              .map((s) => ({ id: s.id, name: s.name, priceText: formatBirr(s.price, locale) }))}
+            canRequest={open && isDoctor}
+          />
+        </section>
+      ) : null}
 
       {open ? (
         <section aria-label={t("closeAndBill")} className="grid gap-2">
