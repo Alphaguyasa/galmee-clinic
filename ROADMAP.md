@@ -6,7 +6,7 @@
 - [x] Reception queue screen (`cl_visits` by status) + open visit
 - [x] Price list of services (owner/manager edit, reception reads)
 - [x] Visit screen: add services (`cl_add_service`), running total
-- [ ] Close & bill flow (`cl_close_visit_and_bill`) + cash/Telebirr
+- [x] Close & bill flow (`cl_close_visit_and_bill`) + cash/Telebirr
 - [ ] Receipt (58 mm) for visit
 - [ ] Lab request form (`cl_request_lab`)
 - [ ] Lab result entry screen (`cl_enter_lab_results`), lab role only
