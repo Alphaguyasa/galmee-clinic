@@ -81,6 +81,7 @@ export type VisitDTO = {
   servicesTotal: number;
   paidTotal: number;
   debtPosted: number;
+  closedAt: string | null;
   patient: { id: string; cardNo: number; fullName: string; phone: string | null };
 };
 
@@ -89,7 +90,7 @@ export async function getVisit(id: string): Promise<VisitDTO | null> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("cl_visits")
-    .select("id, queue_no, status, visit_date, services_total, paid_total, debt_posted, cl_patients(id, card_no, full_name, phone)")
+    .select("id, queue_no, status, visit_date, services_total, paid_total, debt_posted, closed_at, cl_patients(id, card_no, full_name, phone)")
     .eq("id", id)
     .maybeSingle();
   if (error) throw new Error("visit_failed");
@@ -102,6 +103,7 @@ export async function getVisit(id: string): Promise<VisitDTO | null> {
     servicesTotal: Number(data.services_total),
     paidTotal: Number(data.paid_total),
     debtPosted: Number(data.debt_posted),
+    closedAt: data.closed_at,
     patient: {
       id: data.cl_patients.id,
       cardNo: data.cl_patients.card_no,
@@ -217,4 +219,20 @@ export async function closeVisitAndBill(input: {
           ? "balanceDue"
           : "generic";
   return { ok: false, code };
+}
+
+export type VisitPaymentDTO = { method: string; reference: string | null; amount: number };
+
+/** Money taken when the visit was billed (from core `payments`), for the receipt. */
+export async function getVisitPayments(visitId: string): Promise<VisitPaymentDTO[]> {
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("payments")
+    .select("method, reference, amount")
+    .eq("ref_table", "cl_visits")
+    .eq("ref_id", visitId)
+    .order("created_at", { ascending: true });
+  if (error) return [];
+  return data.map((p) => ({ method: p.method, reference: p.reference, amount: Number(p.amount) }));
 }

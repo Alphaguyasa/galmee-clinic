@@ -157,7 +157,9 @@
     "billErrorAmount": "Enter the amount in birr, for example 150 or 150.50.",
     "billSummary": "Bill",
     "billPaidLabel": "Paid",
-    "billCreditLabel": "On credit"
+    "billCreditLabel": "On credit",
+    "receiptTitle": "Receipt",
+    "receiptPrint": "Print receipt"
   },
   "services": {
     "title": "Services and prices",

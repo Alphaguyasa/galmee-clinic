@@ -8,21 +8,24 @@ import { VisitStatusBadge } from "@/components/visit-status-badge";
 import { VisitStatusControl } from "@/components/visit-status-control";
 import { VisitServices } from "@/components/visit-services";
 import { CloseVisit } from "@/components/close-visit";
+import { VisitReceipt } from "@/components/visit-receipt";
+import { formatEthiopianDate } from "@/lib/ethiopian-date";
 import { defaultLocale, isLocale } from "@/i18n/config";
 import { formatBirr } from "@/lib/money";
 import { listServices } from "@/server/dal/services";
 import { getSession } from "@/server/dal/session";
-import { countPendingLabs, getVisit, getVisitLines } from "@/server/dal/visits";
+import { countPendingLabs, getVisit, getVisitLines, getVisitPayments } from "@/server/dal/visits";
 
 export default async function VisitPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!z.string().uuid().safeParse(id).success) notFound();
-  const [session, visit, lines, services, pendingLabs, t, tQueue, rawLocale] = await Promise.all([
+  const [session, visit, lines, services, pendingLabs, payments, t, tQueue, rawLocale] = await Promise.all([
     getSession(),
     getVisit(id),
     getVisitLines(id),
     listServices(),
     countPendingLabs(id),
+    getVisitPayments(id),
     getTranslations("visit"),
     getTranslations("queue"),
     getLocale(),
@@ -91,20 +94,25 @@ export default async function VisitPage({ params }: { params: Promise<{ id: stri
           />
         </section>
       ) : visit.status === "done" ? (
-        <section aria-labelledby="bill" className="grid gap-2 rounded-md border bg-card p-4">
+        <section aria-labelledby="bill" className="grid gap-3 rounded-md border bg-card p-4">
           <h2 id="bill" className="text-lg font-bold">
             {t("billSummary")}
           </h2>
-          <div className="flex items-baseline justify-between">
-            <span>{t("billPaidLabel")}</span>
-            <span className="num font-semibold">{formatBirr(visit.paidTotal, locale)}</span>
-          </div>
-          {visit.debtPosted > 0 ? (
-            <div className="flex items-baseline justify-between text-warning">
-              <span>{t("billCreditLabel")}</span>
-              <span className="num font-semibold">{formatBirr(visit.debtPosted, locale)}</span>
-            </div>
-          ) : null}
+          <VisitReceipt
+            tenantName={session.tenant.name}
+            title={`${t("receiptTitle")} · ${tQueue("queueNo")} ${visit.queueNo}`}
+            dateLabel={formatEthiopianDate(visit.closedAt ?? visit.visitDate, locale)}
+            lines={lines.map((l) => ({ name: l.serviceName, qty: l.qty !== 1 ? `×${l.qty}` : "", amount: formatBirr(l.lineTotal, locale) }))}
+            totals={[
+              ...(visit.debtPosted > 0 ? [{ label: t("billCreditLabel"), amount: formatBirr(visit.debtPosted, locale) }] : []),
+              ...payments.map((p) => ({
+                label: `${t("billPaidLabel")} · ${p.method === "cash" || p.method === "telebirr" ? t(`billMethods.${p.method}`) : p.method}${p.reference ? ` ${p.reference}` : ""}`,
+                amount: formatBirr(p.amount, locale),
+              })),
+              { label: t("total"), amount: formatBirr(visit.servicesTotal, locale) },
+            ]}
+            footer={`${visit.patient.fullName} · ${tQueue("cardNo")} ${visit.patient.cardNo}`}
+          />
           <p className="text-sm text-muted-foreground">{t("closedNote")}</p>
         </section>
       ) : (

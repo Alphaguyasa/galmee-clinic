@@ -157,7 +157,9 @@
     "billErrorAmount": "Hanga birriidhaan galchi, fkn 150 ykn 150.50.",
     "billSummary": "Herrega",
     "billPaidLabel": "Kaffalame",
-    "billCreditLabel": "Liqiidhaan"
+    "billCreditLabel": "Liqiidhaan",
+    "receiptTitle": "Nagahee",
+    "receiptPrint": "Nagahee maxxansi"
   },
   "services": {
     "title": "Tajaajilaafi gatii",

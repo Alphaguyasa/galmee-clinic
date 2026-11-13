@@ -154,6 +154,17 @@
   body:has(.receipt-58) > *:not(:has(.receipt-58)) {
     display: none !important;
   }
+  /* Inside the app shell too: only the receipt and the boxes around it print. */
+  body:has(.receipt-58) *:not(:has(.receipt-58)):not(.receipt-58, .receipt-58 *) {
+    display: none !important;
+  }
+  body:has(.receipt-58) *:has(.receipt-58) {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
   .receipt-58 {
     width: 58mm;
     color: #000;

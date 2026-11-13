@@ -157,7 +157,9 @@
     "billErrorAmount": "መጠኑን በብር አስገባ፣ ለምሳሌ 150 ወይም 150.50።",
     "billSummary": "ሂሳብ",
     "billPaidLabel": "የተከፈለ",
-    "billCreditLabel": "በዱቤ"
+    "billCreditLabel": "በዱቤ",
+    "receiptTitle": "ደረሰኝ",
+    "receiptPrint": "ደረሰኝ አትም"
   },
   "services": {
     "title": "አገልግሎቶችና ዋጋዎች",

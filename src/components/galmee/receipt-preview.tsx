@@ -51,8 +51,8 @@ export function ReceiptPreview({
         <tbody>
           {totals.map((row, i) => (
             <tr key={i} className={i === totals.length - 1 ? "font-bold" : undefined}>
-              <td>{row.label}</td>
-              <td className="num text-right">{row.amount}</td>
+              <td className="pr-1 break-words">{row.label}</td>
+              <td className="num text-right align-top whitespace-nowrap">{row.amount}</td>
             </tr>
           ))}
         </tbody>
