@@ -9,7 +9,8 @@
     "patients": "Patients",
     "queue": "Queue",
     "services": "Prices",
-    "lab": "Lab"
+    "lab": "Lab",
+    "staff": "Staff"
   },
   "common": {
     "language": "Language",
@@ -243,6 +244,22 @@
     "errorClosed": "This test already has its result.",
     "errorDuplicate": "Each test item can appear only once.",
     "errorInvalid": "Fill in the test item and result on every line.",
+    "errorGeneric": "Could not save. Try again."
+  },
+  "staff": {
+    "title": "Staff roles",
+    "intro": "Tick what each person does. Only doctors read clinical notes and order lab tests; only lab staff enter results.",
+    "introReadOnly": "Only the owner can change these roles.",
+    "you": "you",
+    "inactive": "inactive",
+    "rolesFor": "Roles for {name}",
+    "roles": {
+      "doctor": "Doctor",
+      "lab": "Lab",
+      "reception": "Reception"
+    },
+    "privacyNote": "The owner does not read notes or lab results unless the owner also has the Doctor role.",
+    "errorNotAllowed": "Only the owner can change roles.",
     "errorGeneric": "Could not save. Try again."
   }
 }

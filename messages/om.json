@@ -9,7 +9,8 @@
     "patients": "Dhukkubsattoota",
     "queue": "Tarree",
     "services": "Gatii",
-    "lab": "Laabraatoorii"
+    "lab": "Laabraatoorii",
+    "staff": "Hojjettoota"
   },
   "common": {
     "language": "Afaan",
@@ -243,6 +244,22 @@
     "errorClosed": "Qorannoon kun bu'aa isaa qaba.",
     "errorDuplicate": "Gosni qorannoo tokko al tokko qofa galuu qaba.",
     "errorInvalid": "Sarara hunda irratti gosa qorannoo fi bu'aa guuti.",
+    "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
+  },
+  "staff": {
+    "title": "Gahee hojjettootaa",
+    "intro": "Nama tokkoon tokkoon isaa maal akka hojjetu mallatteessi. Yaadannoo yaalaa kan dubbisanii fi qorannoo laabraatoorii kan ajajan doktoroota qofa; bu'aa kan galchan hojjettoota laabraatoorii qofa.",
+    "introReadOnly": "Gahee kana jijjiiruu kan danda'u abbaa qabeenyaa qofa.",
+    "you": "isin",
+    "inactive": "hin hojjetu",
+    "rolesFor": "Gahee {name}",
+    "roles": {
+      "doctor": "Doktora",
+      "lab": "Laabraatoorii",
+      "reception": "Simannaa"
+    },
+    "privacyNote": "Abbaan qabeenyaa gahee Doktoraa yoo hin qabaanne yaadannoo fi bu'aa laabraatoorii hin dubbisu.",
+    "errorNotAllowed": "Gahee jijjiiruu kan danda'u abbaa qabeenyaa qofa.",
     "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
   }
 }

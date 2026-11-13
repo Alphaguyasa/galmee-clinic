@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ClipboardList, FlaskConical, ListChecks, Users } from "lucide-react";
+import { ClipboardList, FlaskConical, ListChecks, UserCog, Users } from "lucide-react";
 import { BottomNav } from "@/components/galmee/bottom-nav";
 
 const ITEMS = [
@@ -9,6 +9,7 @@ const ITEMS = [
   { href: "/patients", key: "patients", icon: Users, manager: false, lab: false },
   { href: "/lab", key: "lab", icon: FlaskConical, manager: false, lab: true },
   { href: "/services", key: "services", icon: ListChecks, manager: false, lab: false },
+  { href: "/staff", key: "staff", icon: UserCog, manager: true, lab: false },
 ] as const;
 
 /** Clinic destinations in the shared Galmee nav; manager-only items hide for staff, the lab for non-lab staff. */

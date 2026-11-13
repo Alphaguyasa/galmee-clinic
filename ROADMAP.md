@@ -19,7 +19,7 @@
 - [ ] Appointment calendar on `bookings` + day-before SMS rows
 - [ ] Partial payment + statement
 - [ ] Telegram-to-doctor on lab completion (notifications row)
-- [ ] Clinical role assignment UI (owner)
+- [x] Clinical role assignment UI (owner)
 - [ ] Monthly report + CSV export
 
 ## M0: Foundation (shared pattern for all Galmee products)
