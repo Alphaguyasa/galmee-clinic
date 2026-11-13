@@ -8,7 +8,8 @@
     "home": "Home",
     "patients": "Patients",
     "queue": "Queue",
-    "services": "Prices"
+    "services": "Prices",
+    "lab": "Lab"
   },
   "common": {
     "language": "Language",
@@ -202,6 +203,46 @@
     "errorPrice": "Enter the price in birr, for example 150 or 150.50.",
     "errorDuplicate": "A service with this name already exists.",
     "errorNotAllowed": "Only the owner or a manager can change prices.",
+    "errorGeneric": "Could not save. Try again."
+  },
+  "lab": {
+    "title": "Lab",
+    "intro": "Tests waiting for a result, oldest first.",
+    "notAllowed": "Only lab staff and doctors can see lab tests.",
+    "empty": "No tests waiting. New orders from the doctor appear here.",
+    "back": "Back to the lab",
+    "doctorNote": "Doctor's note",
+    "results": "Results",
+    "waiting": "Waiting for the lab to enter the result.",
+    "analyte": "Test item",
+    "value": "Result",
+    "unit": "Unit",
+    "range": "Normal range",
+    "flag": "Flag",
+    "flags": {
+      "normal": "Normal",
+      "low": "Low",
+      "high": "High",
+      "abnormal": "Abnormal"
+    },
+    "line": "Line {n}",
+    "addLine": "Add another line",
+    "removeLine": "Remove line {n}",
+    "save": "Save results and send back to doctor",
+    "saving": "Saving…",
+    "status": {
+      "requested": "Waiting",
+      "completed": "Result in",
+      "cancelled": "Cancelled"
+    },
+    "sex": {
+      "female": "Female",
+      "male": "Male"
+    },
+    "errorNotAllowed": "Only lab staff can enter results.",
+    "errorClosed": "This test already has its result.",
+    "errorDuplicate": "Each test item can appear only once.",
+    "errorInvalid": "Fill in the test item and result on every line.",
     "errorGeneric": "Could not save. Try again."
   }
 }

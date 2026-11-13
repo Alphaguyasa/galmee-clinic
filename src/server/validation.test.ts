@@ -49,3 +49,21 @@ describe("labRequestSchema", () => {
     expect(labRequestSchema.safeParse({ ...ids, note: "x".repeat(501) }).success).toBe(false);
   });
 });
+
+describe("labResultsSchema", () => {
+  const row = { analyte: "Hemoglobin", value: "13.2", unit: "g/dL", reference_range: "12-16", flag: "normal" };
+  it("accepts a result line and trims it", async () => {
+    const { labResultsSchema } = await import("./validation");
+    const r = labResultsSchema.safeParse({ orderId: base.visitId, results: [{ ...row, value: " 13.2 " }] });
+    expect(r.success && r.data.results[0].value).toBe("13.2");
+  });
+  it("rejects no lines, an empty value, an unknown flag and the same analyte twice", async () => {
+    const { labResultsSchema } = await import("./validation");
+    expect(labResultsSchema.safeParse({ orderId: base.visitId, results: [] }).success).toBe(false);
+    expect(labResultsSchema.safeParse({ orderId: base.visitId, results: [{ ...row, value: " " }] }).success).toBe(false);
+    expect(labResultsSchema.safeParse({ orderId: base.visitId, results: [{ ...row, flag: "bad" }] }).success).toBe(false);
+    expect(
+      labResultsSchema.safeParse({ orderId: base.visitId, results: [row, { ...row, analyte: "hemoglobin" }] }).success,
+    ).toBe(false);
+  });
+});

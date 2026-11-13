@@ -8,7 +8,8 @@
     "home": "Mana",
     "patients": "Dhukkubsattoota",
     "queue": "Tarree",
-    "services": "Gatii"
+    "services": "Gatii",
+    "lab": "Laabraatoorii"
   },
   "common": {
     "language": "Afaan",
@@ -202,6 +203,46 @@
     "errorPrice": "Gatii birriin galchi, fkn 150 yookaan 150.50.",
     "errorDuplicate": "Tajaajilli maqaa kanaan duraan jira.",
     "errorNotAllowed": "Gatii jijjiiruu kan danda'u abbaa qabeenyaa yookaan hoogganaa qofa.",
+    "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
+  },
+  "lab": {
+    "title": "Laabraatoorii",
+    "intro": "Qorannoowwan bu'aa eegan, kan dura ajajame dura.",
+    "notAllowed": "Qorannoo laabraatoorii kan arguu danda'an hojjettoota laabraatooriitii fi doktoroota qofa.",
+    "empty": "Qorannoon eegaa jiru hin jiru. Ajajni haaraan doktoraa asitti mul'ata.",
+    "back": "Gara laabraatooriitti deebi'i",
+    "doctorNote": "Yaadannoo doktoraa",
+    "results": "Bu'aawwan",
+    "waiting": "Laabraatooriin bu'aa hanga galchutti eegaa jira.",
+    "analyte": "Gosa qorannoo",
+    "value": "Bu'aa",
+    "unit": "Safartuu",
+    "range": "Daangaa idilee",
+    "flag": "Mallattoo",
+    "flags": {
+      "normal": "Idilee",
+      "low": "Gadi aanaa",
+      "high": "Ol aanaa",
+      "abnormal": "Kan hin baratamne"
+    },
+    "line": "Sarara {n}",
+    "addLine": "Sarara biraa dabali",
+    "removeLine": "Sarara {n} haqi",
+    "save": "Bu'aa olkaa'iitii doktoratti deebisi",
+    "saving": "Olkaa'aa jira…",
+    "status": {
+      "requested": "Eegaa jira",
+      "completed": "Bu'aan gale",
+      "cancelled": "Haqameera"
+    },
+    "sex": {
+      "female": "Dubartii",
+      "male": "Dhiira"
+    },
+    "errorNotAllowed": "Bu'aa galchuu kan danda'an hojjettoota laabraatoorii qofa.",
+    "errorClosed": "Qorannoon kun bu'aa isaa qaba.",
+    "errorDuplicate": "Gosni qorannoo tokko al tokko qofa galuu qaba.",
+    "errorInvalid": "Sarara hunda irratti gosa qorannoo fi bu'aa guuti.",
     "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
   }
 }

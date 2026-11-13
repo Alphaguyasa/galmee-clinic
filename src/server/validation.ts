@@ -101,3 +101,23 @@ export const labRequestSchema = z.object({
   note: optionalText(500),
   clientRef: z.string().uuid(),
 });
+
+export const LAB_FLAGS = ["normal", "low", "high", "abnormal"] as const;
+
+const labResultRow = z.object({
+  analyte: z.string().trim().min(1).max(120),
+  value: z.string().trim().min(1).max(200),
+  unit: z.string().trim().max(40),
+  reference_range: z.string().trim().max(80),
+  flag: z.union([z.literal(""), z.enum(LAB_FLAGS)]),
+});
+
+/** Lab results for one order: 1 to 30 lines, each analyte once (the database has the same rule). */
+export const labResultsSchema = z.object({
+  orderId: z.string().uuid(),
+  results: z
+    .array(labResultRow)
+    .min(1)
+    .max(30)
+    .refine((rows) => new Set(rows.map((r) => r.analyte.toLowerCase())).size === rows.length, { message: "duplicate" }),
+});

@@ -9,7 +9,7 @@
 - [x] Close & bill flow (`cl_close_visit_and_bill`) + cash/Telebirr
 - [x] Receipt (58 mm) for visit
 - [x] Lab request form (`cl_request_lab`)
-- [ ] Lab result entry screen (`cl_enter_lab_results`), lab role only
+- [x] Lab result entry screen (`cl_enter_lab_results`), lab role only
 - [x] Status transitions wired (waiting→doctor→lab; done comes from billing)
 
 ## M-after: Tier 2 and 3

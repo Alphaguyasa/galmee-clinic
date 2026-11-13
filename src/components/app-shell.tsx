@@ -13,6 +13,7 @@ type ShellProps = {
   userName: string;
   roleLabel: string;
   canManage: boolean;
+  showLab: boolean;
   children: React.ReactNode;
 };
 
@@ -34,7 +35,7 @@ function TenantBadge({
   );
 }
 
-export async function AppShell({ tenantName, logoUrl, userName, roleLabel, canManage, children }: ShellProps) {
+export async function AppShell({ tenantName, logoUrl, userName, roleLabel, canManage, showLab, children }: ShellProps) {
   const [t, tCommon] = await Promise.all([getTranslations("auth"), getTranslations("common")]);
   return (
     <div className="min-h-dvh md:grid md:grid-cols-[15rem_1fr] print:block">
@@ -46,7 +47,7 @@ export async function AppShell({ tenantName, logoUrl, userName, roleLabel, canMa
       </a>
       <aside className="hidden print:!hidden border-r bg-card md:flex md:flex-col md:gap-6 md:p-4">
         <TenantBadge tenantName={tenantName} logoUrl={logoUrl} />
-        <AppNav variant="side" canManage={canManage} />
+        <AppNav variant="side" canManage={canManage} showLab={showLab} />
         <div className="mt-auto grid gap-3">
           <div className="text-sm">
             <div className="truncate font-medium">{userName}</div>
@@ -83,7 +84,7 @@ export async function AppShell({ tenantName, logoUrl, userName, roleLabel, canMa
         <main id="main" className="mx-auto w-full max-w-5xl flex-1 px-4 pt-4 pb-24 md:p-8 print:m-0 print:p-0">{children}</main>
       </div>
 
-      <AppNav variant="bottom" canManage={canManage} />
+      <AppNav variant="bottom" canManage={canManage} showLab={showLab} />
     </div>
   );
 }
