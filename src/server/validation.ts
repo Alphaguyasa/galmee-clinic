@@ -95,6 +95,18 @@ export const closeVisitSchema = z
   .refine((v) => v.method !== "telebirr" || v.paid === 0 || Boolean(v.reference), { path: ["reference"] });
 export type CloseVisitInput = z.output<typeof closeVisitSchema>;
 
+/** A patient paying off (part of) what they owe. Telebirr needs its transaction number. */
+export const repaymentSchema = z
+  .object({
+    patientId: z.string().uuid(),
+    amount: birrAmount.refine((v) => v > 0),
+    method: z.enum(PAY_METHODS),
+    reference: optionalText(60),
+    clientRef: z.string().uuid(),
+  })
+  .refine((v) => v.method !== "telebirr" || Boolean(v.reference), { path: ["reference"] });
+export type RepaymentInput = z.output<typeof repaymentSchema>;
+
 export const labRequestSchema = z.object({
   visitId: z.string().uuid(),
   serviceId: z.string().uuid(),

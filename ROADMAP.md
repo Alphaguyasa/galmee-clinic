@@ -18,7 +18,7 @@
 - [x] Patient card (visits, labs, balance) screen, every opening logged
 - [ ] Attachments upload on the patient card
 - [ ] Appointment calendar on `bookings` + day-before SMS rows
-- [ ] Partial payment + statement
+- [x] Partial payment + statement
 - [x] Telegram-to-doctor on lab completion (notifications row)
 - [x] Clinical role assignment UI (owner)
 - [ ] Monthly report + CSV export

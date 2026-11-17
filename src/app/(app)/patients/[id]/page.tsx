@@ -16,7 +16,8 @@ import { formatEthiopianDate } from "@/lib/ethiopian-date";
 import { formatBirr } from "@/lib/money";
 import { OPEN_STATUSES } from "@/lib/visit-status";
 import { getClinicalRoles } from "@/server/dal/clinical-roles";
-import { getCardLabs, getCardVisits, openPatientCard } from "@/server/dal/patient-card";
+import { getCardLabs, getCardVisits, getStatement, openPatientCard } from "@/server/dal/patient-card";
+import { PayBalance } from "@/components/pay-balance";
 
 // Every opening of a card is logged, so the page is always rendered fresh.
 export const dynamic = "force-dynamic";
@@ -27,9 +28,10 @@ export default async function PatientCardPage({ params }: { params: Promise<{ id
   const patient = await openPatientCard(id);
   if (!patient) notFound();
 
-  const [roles, visits, t, tPatients, tQueue, tLab, rawLocale] = await Promise.all([
+  const [roles, visits, statement, t, tPatients, tQueue, tLab, rawLocale] = await Promise.all([
     getClinicalRoles(),
     getCardVisits(id),
+    getStatement(patient.customerId),
     getTranslations("card"),
     getTranslations("patients"),
     getTranslations("queue"),
@@ -89,6 +91,40 @@ export default async function PatientCardPage({ params }: { params: Promise<{ id
         tone={patient.balance > 0 ? "owed" : "band"}
         size="md"
       />
+
+      {patient.balance > 0 ? <PayBalance key={patient.balance} patientId={patient.id} owed={patient.balance} /> : null}
+
+      {statement.length > 0 ? (
+        <details className="rounded-md border bg-card">
+          <summary className="flex min-h-12 cursor-pointer items-center px-3 font-semibold">
+            {t("statement", { count: statement.length })}
+          </summary>
+          <table className="w-full text-sm">
+            <thead className="text-left text-muted-foreground">
+              <tr>
+                <th className="px-3 py-1 font-medium">{t("statementDate")}</th>
+                <th className="px-1 py-1 text-right font-medium">{t("statementAmount")}</th>
+                <th className="px-3 py-1 text-right font-medium">{t("statementBalance")}</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y">
+              {[...statement].reverse().map((l, i) => (
+                <tr key={i}>
+                  <td className="px-3 py-2">
+                    {formatEthiopianDate(l.at, locale, { withEra: false })}
+                    <span className="block text-xs text-muted-foreground">{l.type === "debt" ? t("lineDebt") : t("lineRepayment")}</span>
+                  </td>
+                  <td className={l.type === "debt" ? "num px-1 py-2 text-right whitespace-nowrap text-owed" : "num px-1 py-2 text-right whitespace-nowrap text-money-in"}>
+                    {l.type === "debt" ? "+" : "−"}
+                    {formatBirr(l.amount, locale)}
+                  </td>
+                  <td className="num px-3 py-2 text-right font-semibold whitespace-nowrap">{formatBirr(l.balanceAfter, locale)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </details>
+      ) : null}
 
       <section aria-labelledby="visits" className="grid gap-2">
         <h2 id="visits" className="text-lg font-bold">

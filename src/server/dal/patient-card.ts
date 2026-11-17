@@ -1,5 +1,6 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
+import { statementLines, type StatementLineDTO } from "@/lib/statement";
 import type { VisitStatus } from "@/lib/visit-status";
 import { getSession } from "./session";
 
@@ -12,6 +13,7 @@ export type PatientCardDTO = {
   birthDate: string | null;
   address: string | null;
   registeredAt: string;
+  customerId: string;
   /** What the patient still owes the clinic: debts minus repayments on the core credit ledger. */
   balance: number;
 };
@@ -59,18 +61,7 @@ export async function openPatientCard(patientId: string): Promise<PatientCardDTO
   if (error) throw new Error("patient_failed");
   if (!p) return null;
 
-  const { data: ledger, error: ledgerError } = await supabase
-    .from("credit_ledger")
-    .select("type, amount")
-    .eq("customer_id", p.customer_id)
-    .limit(1000);
-  if (ledgerError) throw new Error("balance_failed");
-  const balance = ledger.reduce((sum, row) => {
-    const amount = Number(row.amount);
-    if (row.type === "debt") return sum + amount;
-    if (row.type === "repayment") return sum - amount;
-    return sum;
-  }, 0);
+  const balance = await customerBalance(p.customer_id);
 
   return {
     id: p.id,
@@ -81,7 +72,8 @@ export async function openPatientCard(patientId: string): Promise<PatientCardDTO
     birthDate: p.birth_date,
     address: p.address,
     registeredAt: p.created_at,
-    balance: Math.round(balance * 100) / 100,
+    customerId: p.customer_id,
+    balance,
   };
 }
 
@@ -134,4 +126,53 @@ export async function getCardLabs(patientId: string): Promise<CardLabDTO[]> {
       .sort((a, b) => a.entered_at.localeCompare(b.entered_at))
       .map((r) => ({ analyte: r.analyte, value: r.value, unit: r.unit, referenceRange: r.reference_range, flag: r.flag })),
   }));
+}
+
+/** Debts minus repayments on the core credit ledger for one customer, rounded to cents. */
+export async function customerBalance(customerId: string): Promise<number> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("credit_ledger").select("type, amount").eq("customer_id", customerId).limit(2000);
+  if (error) throw new Error("balance_failed");
+  return statementLines(data.map((r) => ({ ...r, created_at: "" }))).balance;
+}
+
+/** The patient's credit statement: every debt and repayment, oldest first, with the running balance. */
+export async function getStatement(customerId: string): Promise<StatementLineDTO[]> {
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("credit_ledger")
+    .select("type, amount, created_at")
+    .eq("customer_id", customerId)
+    .order("created_at", { ascending: true })
+    .limit(2000);
+  if (error) throw new Error("statement_failed");
+  return statementLines(data).lines;
+}
+
+export type RepaymentResult = { ok: true } | { ok: false; code: "tooMuch" | "nothingOwed" | "notFound" | "generic" };
+
+/** Records a repayment through the core RPC, never more than the patient owes. */
+export async function recordPatientRepayment(input: {
+  patientId: string;
+  amount: number;
+  method: "cash" | "telebirr";
+  reference?: string;
+  clientRef: string;
+}): Promise<RepaymentResult> {
+  await getSession();
+  const supabase = await createClient();
+  const { data: p } = await supabase.from("cl_patients").select("customer_id").eq("id", input.patientId).maybeSingle();
+  if (!p) return { ok: false, code: "notFound" };
+  const owed = await customerBalance(p.customer_id);
+  if (owed <= 0) return { ok: false, code: "nothingOwed" };
+  if (input.amount > owed) return { ok: false, code: "tooMuch" };
+  const { error } = await supabase.rpc("record_repayment", {
+    p_customer: p.customer_id,
+    p_amount: input.amount,
+    p_method: input.method,
+    p_reference: input.reference,
+    p_client_ref: input.clientRef,
+  });
+  return error ? { ok: false, code: "generic" } : { ok: true };
 }
