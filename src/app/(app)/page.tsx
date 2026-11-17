@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ClipboardList, Search } from "lucide-react";
+import { ClipboardList, Receipt, Search } from "lucide-react";
 import { CardNoTab } from "@/components/card-no-tab";
 import { EmptyState } from "@/components/galmee/empty-state";
 import { ListRow, ListSheet } from "@/components/galmee/list-row";
@@ -9,16 +9,19 @@ import { VisitStatusBadge } from "@/components/visit-status-badge";
 import { isLocale, defaultLocale } from "@/i18n/config";
 import { formatEthiopianDate } from "@/lib/ethiopian-date";
 import { cn } from "@/lib/utils";
+import { getSession } from "@/server/dal/session";
 import { clinicToday, getTodayQueue } from "@/server/dal/visits";
 
 const COUNTED = ["waiting", "with_doctor", "lab", "done"] as const;
 
 /** Reception's home: today's bench of patients, in the order they arrived. */
 export default async function QueuePage() {
-  const [queue, t, tStatus, locale] = await Promise.all([
+  const [session, queue, t, tStatus, tIncome, locale] = await Promise.all([
+    getSession(),
     getTodayQueue(),
     getTranslations("queue"),
     getTranslations("queue.status"),
+    getTranslations("income"),
     getLocale(),
   ]);
   const counts = Object.fromEntries(COUNTED.map((s) => [s, queue.filter((v) => v.status === s).length]));
@@ -48,6 +51,13 @@ export default async function QueuePage() {
           </div>
         ))}
       </dl>
+
+      {session.profile.role === "owner" || session.profile.role === "manager" ? (
+        <Link href="/income" className={cn(buttonVariants({ variant: "outline" }), "w-fit")}>
+          <Receipt aria-hidden />
+          {tIncome("link")}
+        </Link>
+      ) : null}
 
       {ordered.length === 0 ? (
         <EmptyState

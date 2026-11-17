@@ -279,5 +279,22 @@
     "noResults": "Bu'aan hin galmoofne",
     "loggedNote": "Kaardiin kun yeroo banamu hundaa maqaa keessanii fi yeroon ni galmaa'a.",
     "openCard": "Kaardii bani"
+  },
+  "income": {
+    "title": "Galii tajaajilaan",
+    "pickDay": "Guyyaa filadhu",
+    "previousDay": "Guyyaa darbe",
+    "nextDay": "Guyyaa itti aanu",
+    "today": "Har'a",
+    "billed": "Daawwannaa cufaman irratti kan herregame",
+    "visitsClosed": "{count, plural, =0 {Daawwannaan hin cufamne} one {Daawwannaa # cufame} other {Daawwannaa # cufaman}}",
+    "paid": "Kan kaffalame",
+    "credit": "Liqiin hafe",
+    "byService": "Tajaajilaan",
+    "times": "{count, plural, one {Yeroo #} other {Yeroo #}}",
+    "emptyToday": "Har'a ammaaf daawwannaan cufamee herregame hin jiru.",
+    "emptyDay": "Guyyaa kana daawwannaan cufamee herregame hin jiru.",
+    "note": "Daawwannaan tokkoon tokkoon guyyaa itti cufamee herregame lakkaa'ama. Liqiin booda kaffalame hin dabalamu.",
+    "link": "Galii har'aa"
   }
 }

@@ -279,5 +279,22 @@
     "noResults": "No results entered",
     "loggedNote": "Every opening of this card is recorded with your name and the time.",
     "openCard": "Open card"
+  },
+  "income": {
+    "title": "Income by service",
+    "pickDay": "Choose the day",
+    "previousDay": "Previous day",
+    "nextDay": "Next day",
+    "today": "Today",
+    "billed": "Billed on closed visits",
+    "visitsClosed": "{count, plural, =0 {No visits closed} one {# visit closed} other {# visits closed}}",
+    "paid": "Paid",
+    "credit": "Left on credit",
+    "byService": "By service",
+    "times": "{count, plural, one {# time} other {# times}}",
+    "emptyToday": "No visit has been closed and billed yet today.",
+    "emptyDay": "No visits were closed and billed on this day.",
+    "note": "Counts each visit on the day it was closed and billed. Credit repaid later is not included.",
+    "link": "Income today"
   }
 }

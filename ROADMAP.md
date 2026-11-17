@@ -14,7 +14,7 @@
 
 ## M-after: Tier 2 and 3
 
-- [ ] Daily income by service screen
+- [x] Daily income by service screen
 - [x] Patient card (visits, labs, balance) screen, every opening logged
 - [ ] Attachments upload on the patient card
 - [ ] Appointment calendar on `bookings` + day-before SMS rows
