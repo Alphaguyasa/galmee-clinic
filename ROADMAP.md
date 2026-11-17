@@ -15,7 +15,8 @@
 ## M-after: Tier 2 and 3
 
 - [ ] Daily income by service screen
-- [ ] Patient card (visits, labs, balance) screen; attachments upload comes with this, not before
+- [x] Patient card (visits, labs, balance) screen, every opening logged
+- [ ] Attachments upload on the patient card
 - [ ] Appointment calendar on `bookings` + day-before SMS rows
 - [ ] Partial payment + statement
 - [ ] Telegram-to-doctor on lab completion (notifications row)

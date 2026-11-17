@@ -82,7 +82,11 @@ export default async function PatientsPage({ searchParams }: { searchParams: Pro
               <ListRow
                 key={p.id}
                 mark={<CardNoTab cardNo={p.cardNo} label={t("cardNo")} />}
-                title={p.fullName}
+                title={
+                  <Link href={`/patients/${p.id}`} prefetch={false} className="text-primary underline-offset-4 hover:underline">
+                    {p.fullName}
+                  </Link>
+                }
                 sub={
                   <span>
                     {[

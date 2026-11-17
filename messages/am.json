@@ -261,5 +261,23 @@
     "privacyNote": "ባለቤቱ የሐኪም ሚና ከሌለው ማስታወሻዎችንና የላብ ውጤቶችን አያነብም።",
     "errorNotAllowed": "ሚና መቀየር የሚችለው ባለቤቱ ብቻ ነው።",
     "errorGeneric": "ማስቀመጥ አልተቻለም። እንደገና ሞክር።"
+  },
+  "card": {
+    "balance": "ለክሊኒኩ ያለበት ዕዳ",
+    "balanceOwed": "ከቀደሙት ጉብኝቶች ያልተከፈለ ቀሪ",
+    "balanceClear": "ምንም ዕዳ የለም",
+    "registeredOn": "የተመዘገበው {date}",
+    "visits": "{count, plural, =0 {ጉብኝቶች} one {# ጉብኝት} other {# ጉብኝቶች}}",
+    "noVisits": "እስካሁን ጉብኝት የለም። ለመጀመር ታካሚውን ወረፋ ውስጥ ያስገቡ።",
+    "noServices": "ምንም አገልግሎት አልተከፈለም",
+    "diagnosis": "ምርመራ ውጤት",
+    "complaint": "ቅሬታ",
+    "treatment": "ሕክምና",
+    "labs": "የላብራቶሪ ውጤቶች",
+    "noLabs": "እስካሁን የላብራቶሪ ምርመራ የለም።",
+    "labWaiting": "ላብራቶሪን በመጠበቅ ላይ",
+    "noResults": "ውጤት አልገባም",
+    "loggedNote": "ይህ ካርድ በተከፈተ ቁጥር ስምዎና ሰዓቱ ይመዘገባል።",
+    "openCard": "ካርድ ክፈት"
   }
 }

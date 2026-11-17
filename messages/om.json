@@ -261,5 +261,23 @@
     "privacyNote": "Abbaan qabeenyaa gahee Doktoraa yoo hin qabaanne yaadannoo fi bu'aa laabraatoorii hin dubbisu.",
     "errorNotAllowed": "Gahee jijjiiruu kan danda'u abbaa qabeenyaa qofa.",
     "errorGeneric": "Olkaa'uun hin danda'amne. Irra deebi'ii yaali."
+  },
+  "card": {
+    "balance": "Kiliinikaaf kan irraa qabu",
+    "balanceOwed": "Hambaa daawwannaa duraanii hin kaffalamne",
+    "balanceClear": "Liqiin hin jiru",
+    "registeredOn": "Galmaa'e {date}",
+    "visits": "{count, plural, =0 {Daawwannaawwan} one {Daawwannaa #} other {Daawwannaa #}}",
+    "noVisits": "Ammaaf daawwannaan hin jiru. Jalqabuuf dhukkubsataa tarree keessa galchi.",
+    "noServices": "Tajaajilli hin herregamne",
+    "diagnosis": "Murtii dhukkubaa",
+    "complaint": "Komii",
+    "treatment": "Yaala",
+    "labs": "Bu'aa laaboraatorii",
+    "noLabs": "Ammaaf qorannoon laaboraatorii hin jiru.",
+    "labWaiting": "Laaboraatorii eegaa jira",
+    "noResults": "Bu'aan hin galmoofne",
+    "loggedNote": "Kaardiin kun yeroo banamu hundaa maqaa keessanii fi yeroon ni galmaa'a.",
+    "openCard": "Kaardii bani"
   }
 }

@@ -261,5 +261,23 @@
     "privacyNote": "The owner does not read notes or lab results unless the owner also has the Doctor role.",
     "errorNotAllowed": "Only the owner can change roles.",
     "errorGeneric": "Could not save. Try again."
+  },
+  "card": {
+    "balance": "Owes the clinic",
+    "balanceOwed": "Unpaid balance from earlier visits",
+    "balanceClear": "Nothing owed",
+    "registeredOn": "Registered {date}",
+    "visits": "{count, plural, =0 {Visits} one {# visit} other {# visits}}",
+    "noVisits": "No visits yet. Put the patient in the queue to start one.",
+    "noServices": "No services billed",
+    "diagnosis": "Diagnosis",
+    "complaint": "Complaint",
+    "treatment": "Treatment",
+    "labs": "Lab results",
+    "noLabs": "No lab tests yet.",
+    "labWaiting": "Waiting for the lab",
+    "noResults": "No results entered",
+    "loggedNote": "Every opening of this card is recorded with your name and the time.",
+    "openCard": "Open card"
   }
 }

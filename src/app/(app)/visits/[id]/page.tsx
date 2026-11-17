@@ -22,7 +22,7 @@ import { countPendingLabs, getVisit, getVisitLines, getVisitPayments } from "@/s
 export default async function VisitPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!z.string().uuid().safeParse(id).success) notFound();
-  const [session, roles, visit, lines, services, pendingLabs, payments, labOrders, t, tQueue, rawLocale] = await Promise.all([
+  const [session, roles, visit, lines, services, pendingLabs, payments, labOrders, t, tQueue, tCard, rawLocale] = await Promise.all([
     getSession(),
     getClinicalRoles(),
     getVisit(id),
@@ -33,6 +33,7 @@ export default async function VisitPage({ params }: { params: Promise<{ id: stri
     getVisitLabOrders(id),
     getTranslations("visit"),
     getTranslations("queue"),
+    getTranslations("card"),
     getLocale(),
   ]);
   if (!visit) notFound();
@@ -60,6 +61,13 @@ export default async function VisitPage({ params }: { params: Promise<{ id: stri
             <VisitStatusBadge status={visit.status} />
           </div>
           {visit.patient.phone ? <p className="num text-sm text-muted-foreground">{visit.patient.phone}</p> : null}
+          <Link
+            href={`/patients/${visit.patient.id}`}
+            prefetch={false}
+            className="inline-flex h-11 w-fit items-center text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {tCard("openCard")}
+          </Link>
         </div>
       </header>
 
