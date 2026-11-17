@@ -19,7 +19,7 @@
 - [ ] Attachments upload on the patient card
 - [ ] Appointment calendar on `bookings` + day-before SMS rows
 - [ ] Partial payment + statement
-- [ ] Telegram-to-doctor on lab completion (notifications row)
+- [x] Telegram-to-doctor on lab completion (notifications row)
 - [x] Clinical role assignment UI (owner)
 - [ ] Monthly report + CSV export
 
@@ -63,7 +63,7 @@
 ## M3: Notifications
 
 - [ ] SMS appointment reminder the day before
-- [ ] Telegram to doctor when a lab result is ready
+- [x] Telegram to doctor when a lab result is ready (queued; sent once the bot sender runs)
 - [ ] Edge Function reads `notifications` queue and sends (needs AfroMessage/Telegram keys: ask in the decision log)
 
 ## M4: Demo ready
