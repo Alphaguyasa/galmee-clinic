@@ -21,7 +21,7 @@
 - [x] Partial payment + statement
 - [x] Telegram-to-doctor on lab completion (notifications row)
 - [x] Clinical role assignment UI (owner)
-- [ ] Monthly report + CSV export
+- [x] Monthly report + CSV export
 
 ## M0: Foundation (shared pattern for all Galmee products)
 
@@ -44,11 +44,11 @@
 
 ## M2: Galmee Clinic features
 
-- [ ] Reception queue: today's patients with status (waiting, with doctor, lab, done)
+- [x] Reception queue: today's patients with status (waiting, with doctor, lab, done)
 - [ ] Patient card: history, visits, lab results, attachments
 - [ ] Appointment calendar (core `bookings`, resource = doctor)
-- [ ] Lab request and result entry
-- [ ] Daily income by service
+- [x] Lab request and result entry
+- [x] Daily income by service
 - [x] Migration: cl_patients
 - [x] Migration: cl_visits
 - [x] Migration: cl_services
@@ -58,7 +58,7 @@
 - [x] Migration: cl_attachments
 - [x] `cl_open_visit`, `cl_add_service`, `cl_close_visit_and_bill` RPCs; billing via core `payments`/`credit_ledger`
 - [x] Card number auto-generated per tenant
-- [ ] Clinical notes visible to doctor role only; reception sees name/phone/queue; log every patient-card view
+- [x] Clinical notes visible to doctor role only; reception sees name/phone/queue; log every patient-card view
 
 ## M3: Notifications
 
@@ -68,8 +68,8 @@
 
 ## M4: Demo ready
 
-- [ ] Demo tenant "Galmee Clinic Demo" with data: 30 fictional patients, 10 services (consultation, CBC, malaria test, etc.), a week of visits
-- [ ] Demo login documented in the decision log for Alpha (password set by Alpha, never committed)
+- [x] Demo tenant "Galmee Clinic Demo" with data: 30 fictional patients, 10 services (consultation, CBC, malaria test, etc.), a week of visits
+- [x] Demo login documented in the decision log for Alpha (password set by Alpha, never committed)
 - [ ] 5-minute demo path works on a phone in airplane mode for the main action
 - [ ] Amharic and Afaan Oromo text reviewed list in the decision log for Alpha (native speaker)
 

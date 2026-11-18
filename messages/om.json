@@ -312,6 +312,34 @@
     "emptyToday": "Har'a ammaaf daawwannaan cufamee herregame hin jiru.",
     "emptyDay": "Guyyaa kana daawwannaan cufamee herregame hin jiru.",
     "note": "Daawwannaan tokkoon tokkoon guyyaa itti cufamee herregame lakkaa'ama. Liqiin booda kaffalame hin dabalamu.",
-    "link": "Galii har'aa"
+    "link": "Galii har'aa",
+    "month": {
+      "title": "Galii ji'aa",
+      "byDayLink": "Guyyaa guyyaan",
+      "pickMonth": "Ji'a filadhu",
+      "previousMonth": "Ji'a darbe",
+      "nextMonth": "Ji'a itti aanu",
+      "thisMonth": "Ji'a kana",
+      "download": "CSV buufadhu",
+      "byDay": "Guyyaan",
+      "empty": "Ji'a kana daawwannaan cufamee kaffalame hin jiru.",
+      "emptyThisMonth": "Ji'a kana hanga ammaatti daawwannaan cufamee kaffalame hin jiru.",
+      "link": "Gabaasa ji'aa",
+      "csv": {
+        "totals": "Ida'ama",
+        "services": "Tajaajilaan",
+        "days": "Guyyaan",
+        "service": "Tajaajila",
+        "kind": "Gosa",
+        "count": "Yeroo",
+        "total": "Ida'ama (Birrii)",
+        "day": "Guyyaa",
+        "dayEth": "Guyyaa (ALI)",
+        "visits": "Daawwannaa cufame",
+        "billed": "Kan gaafatame (Birrii)",
+        "paid": "Kan kaffalame (Birrii)",
+        "credit": "Liqiin kan hafe (Birrii)"
+      }
+    }
   }
 }

@@ -312,6 +312,34 @@
     "emptyToday": "No visit has been closed and billed yet today.",
     "emptyDay": "No visits were closed and billed on this day.",
     "note": "Counts each visit on the day it was closed and billed. Credit repaid later is not included.",
-    "link": "Income today"
+    "link": "Income today",
+    "month": {
+      "title": "Income by month",
+      "byDayLink": "Day by day",
+      "pickMonth": "Choose the month",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "thisMonth": "This month",
+      "download": "Download CSV",
+      "byDay": "By day",
+      "empty": "No visits were closed and billed in this month.",
+      "emptyThisMonth": "No visit has been closed and billed yet this month.",
+      "link": "Month report",
+      "csv": {
+        "totals": "Totals",
+        "services": "By service",
+        "days": "By day",
+        "service": "Service",
+        "kind": "Kind",
+        "count": "Times",
+        "total": "Total (ETB)",
+        "day": "Date",
+        "dayEth": "Date (E.C.)",
+        "visits": "Visits closed",
+        "billed": "Billed (ETB)",
+        "paid": "Paid (ETB)",
+        "credit": "Left on credit (ETB)"
+      }
+    }
   }
 }
