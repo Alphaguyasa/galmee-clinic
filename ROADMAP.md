@@ -22,6 +22,7 @@
 - [x] Telegram-to-doctor on lab completion (notifications row)
 - [x] Clinical role assignment UI (owner)
 - [x] Monthly report + CSV export
+- [x] Who owes: patients with an unpaid balance, oldest debt first, linked to the card
 
 ## M0: Foundation (shared pattern for all Galmee products)
 
@@ -37,8 +38,8 @@
 
 ## M1: Core screens
 
-- [ ] Customers: list, search by name/phone, detail with balance
-- [ ] Payments and credit: record payment, credit statement
+- [x] Customers: list, search by name/phone, detail with balance
+- [x] Payments and credit: record payment, credit statement
 - [ ] Reports: today / this week / this Ethiopian month; export CSV
 - [ ] Offline queue for the main money action with sync status indicator
 

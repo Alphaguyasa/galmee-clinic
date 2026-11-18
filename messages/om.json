@@ -341,5 +341,15 @@
         "credit": "Liqiin kan hafe (Birrii)"
       }
     }
+  },
+  "owed": {
+    "title": "Kan liqii qaban",
+    "total": "Liqii kilinikaa",
+    "patients": "{count, plural, =0 {Dhukkubsataan liqii qabu hin jiru} one {Dhukkubsataa # liqii qaba} other {Dhukkubsattoota # liqii qabu}}",
+    "empty": "Dhukkubsataan kilinikaaf liqii qabu hin jiru.",
+    "since": "{date} irraa kaasee",
+    "days": "Guyyaa {count}",
+    "note": "Liqiin durii dursa. Kaffaltii fudhachuuf kaardii bani.",
+    "link": "Kan liqii qaban"
   }
 }

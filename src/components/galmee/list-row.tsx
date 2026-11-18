@@ -18,6 +18,7 @@ export function ListRow({
   mark,
   right,
   href,
+  prefetch,
   className,
 }: {
   title: React.ReactNode;
@@ -28,6 +29,8 @@ export function ListRow({
   /** Right-aligned figure or StatusBadge. */
   right?: React.ReactNode;
   href?: string;
+  /** Pass false when opening the target has a side effect (the patient card logs every opening). */
+  prefetch?: boolean;
   className?: string;
 }) {
   const inner = (
@@ -46,7 +49,7 @@ export function ListRow({
   return (
     <li>
       {href ? (
-        <Link href={href} className={cn(styles, "focus-visible:bg-band focus-visible:outline-none active:bg-band")}>
+        <Link href={href} prefetch={prefetch} className={cn(styles, "focus-visible:bg-band focus-visible:outline-none active:bg-band")}>
           {inner}
         </Link>
       ) : (

@@ -341,5 +341,15 @@
         "credit": "Left on credit (ETB)"
       }
     }
+  },
+  "owed": {
+    "title": "Who owes",
+    "total": "Owed to the clinic",
+    "patients": "{count, plural, =0 {No patients owe} one {# patient owes} other {# patients owe}}",
+    "empty": "No patient owes the clinic anything.",
+    "since": "Owes since {date}",
+    "days": "{count} days",
+    "note": "Oldest debt first. Open a card to take a payment.",
+    "link": "Who owes"
   }
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ClipboardList, Receipt, Search } from "lucide-react";
+import { ClipboardList, HandCoins, Receipt, Search } from "lucide-react";
 import { CardNoTab } from "@/components/card-no-tab";
 import { EmptyState } from "@/components/galmee/empty-state";
 import { ListRow, ListSheet } from "@/components/galmee/list-row";
@@ -16,12 +16,13 @@ const COUNTED = ["waiting", "with_doctor", "lab", "done"] as const;
 
 /** Reception's home: today's bench of patients, in the order they arrived. */
 export default async function QueuePage() {
-  const [session, queue, t, tStatus, tIncome, locale] = await Promise.all([
+  const [session, queue, t, tStatus, tIncome, tOwed, locale] = await Promise.all([
     getSession(),
     getTodayQueue(),
     getTranslations("queue"),
     getTranslations("queue.status"),
     getTranslations("income"),
+    getTranslations("owed"),
     getLocale(),
   ]);
   const counts = Object.fromEntries(COUNTED.map((s) => [s, queue.filter((v) => v.status === s).length]));
@@ -53,10 +54,16 @@ export default async function QueuePage() {
       </dl>
 
       {session.profile.role === "owner" || session.profile.role === "manager" ? (
-        <Link href="/income" className={cn(buttonVariants({ variant: "outline" }), "w-fit")}>
-          <Receipt aria-hidden />
-          {tIncome("link")}
-        </Link>
+        <div className="flex flex-wrap gap-2">
+          <Link href="/income" className={cn(buttonVariants({ variant: "outline" }), "w-fit")}>
+            <Receipt aria-hidden />
+            {tIncome("link")}
+          </Link>
+          <Link href="/owed" prefetch={false} className={cn(buttonVariants({ variant: "outline" }), "w-fit")}>
+            <HandCoins aria-hidden />
+            {tOwed("link")}
+          </Link>
+        </div>
       ) : null}
 
       {ordered.length === 0 ? (
