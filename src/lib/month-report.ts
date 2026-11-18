@@ -107,3 +107,36 @@ export function monthlyIncomeCsv(
   ];
   return `﻿${rows.join("\r\n")}\r\n`;
 }
+
+const DAY = /^\d{4}-\d{2}-\d{2}$/;
+
+const addDays = (day: string, by: number) => {
+  const d = new Date(`${day}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + by);
+  return d.toISOString().slice(0, 10);
+};
+
+/** The Monday on or before a YYYY-MM-DD day (Ethiopian clinics count the week from Monday). */
+export function weekStart(day: string): string {
+  const weekday = new Date(`${day}T00:00:00Z`).getUTCDay(); // 0 = Sunday
+  return addDays(day, -((weekday + 6) % 7));
+}
+
+/** A week from the query string (any day in it, YYYY-MM-DD), as its Monday; this week when missing, malformed or in the future. */
+export function pickWeek(raw: string | undefined, today: string): string {
+  const current = weekStart(today);
+  if (!raw || !DAY.test(raw)) return current;
+  const d = new Date(`${raw}T00:00:00Z`);
+  if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== raw) return current;
+  const start = weekStart(raw);
+  return start > current ? current : start;
+}
+
+/** Monday of the week before (by = -1) or after (by = 1). */
+export const shiftWeek = (monday: string, by: number) => addDays(monday, 7 * by);
+
+/** The week's Gregorian range: Monday and the next Monday (exclusive). */
+export const weekRange = (monday: string) => ({ from: monday, to: addDays(monday, 7) });
+
+/** The last day of the week (Sunday), for labels. */
+export const weekEnd = (monday: string) => addDays(monday, 6);

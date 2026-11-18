@@ -90,3 +90,20 @@ describe("monthly income", () => {
     expect(csv).toContain('2026-11-10,"Hidar 1, 2019",2,450.00,400.00,50.00\r\n');
   });
 });
+
+describe("weeks", () => {
+  it("starts weeks on Monday", async () => {
+    const { weekStart, pickWeek, shiftWeek, weekRange, weekEnd } = await import("./month-report");
+    expect(weekStart("2026-11-18")).toBe("2026-11-16"); // Wednesday
+    expect(weekStart("2026-11-16")).toBe("2026-11-16"); // Monday
+    expect(weekStart("2026-11-22")).toBe("2026-11-16"); // Sunday
+    expect(weekStart("2027-01-01")).toBe("2026-12-28");
+    expect(pickWeek(undefined, "2026-11-18")).toBe("2026-11-16");
+    expect(pickWeek("2026-11-05", "2026-11-18")).toBe("2026-11-02");
+    expect(pickWeek("2026-11-25", "2026-11-18")).toBe("2026-11-16");
+    expect(pickWeek("2026-02-30", "2026-11-18")).toBe("2026-11-16");
+    expect(shiftWeek("2026-11-16", -1)).toBe("2026-11-09");
+    expect(weekRange("2026-11-16")).toEqual({ from: "2026-11-16", to: "2026-11-23" });
+    expect(weekEnd("2026-11-16")).toBe("2026-11-22");
+  });
+});

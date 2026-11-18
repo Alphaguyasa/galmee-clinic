@@ -10,7 +10,7 @@ import { defaultLocale, isLocale } from "@/i18n/config";
 import { formatEthiopianDate } from "@/lib/ethiopian-date";
 import { pickIncomeDay, shiftDay } from "@/lib/income";
 import { formatBirr } from "@/lib/money";
-import { formatMonthParam, monthOf } from "@/lib/month-report";
+import { formatMonthParam, monthOf, weekStart } from "@/lib/month-report";
 import { cn } from "@/lib/utils";
 import { getDailyIncome } from "@/server/dal/income";
 import { clinicToday } from "@/server/dal/visits";
@@ -33,15 +33,24 @@ export default async function IncomePage({ searchParams }: { searchParams: Promi
 
   return (
     <div className="mx-auto grid w-full max-w-xl gap-5 *:min-w-0">
-      <div className="flex flex-wrap items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
         <h1 className="text-[1.5625rem] leading-tight font-bold">{t("title")}</h1>
-        <Link
-          href={`/income/month?m=${formatMonthParam(monthOf(day))}`}
-          prefetch={false}
-          className="inline-flex h-11 items-center text-sm font-medium text-primary"
-        >
-          {t("month.link")}
-        </Link>
+        <div className="flex gap-4">
+          <Link
+            href={`/income/month?m=${formatMonthParam(monthOf(day))}`}
+            prefetch={false}
+            className="inline-flex h-11 items-center text-sm font-medium text-primary"
+          >
+            {t("month.link")}
+          </Link>
+          <Link
+            href={`/income/week?w=${weekStart(day)}`}
+            prefetch={false}
+            className="inline-flex h-11 items-center text-sm font-medium text-primary"
+          >
+            {t("week.link")}
+          </Link>
+        </div>
       </div>
 
       <nav aria-label={t("pickDay")} className="flex items-center justify-between gap-2 rounded-md border bg-card p-1">

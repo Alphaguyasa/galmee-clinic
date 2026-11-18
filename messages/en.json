@@ -340,6 +340,16 @@
         "paid": "Paid (ETB)",
         "credit": "Left on credit (ETB)"
       }
+    },
+    "week": {
+      "title": "Income by week",
+      "link": "Week report",
+      "pickWeek": "Choose the week",
+      "previousWeek": "Previous week",
+      "nextWeek": "Next week",
+      "thisWeek": "This week",
+      "empty": "No visits were closed and billed in this week.",
+      "emptyThisWeek": "No visit has been closed and billed yet this week."
     }
   },
   "owed": {

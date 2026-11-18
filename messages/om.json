@@ -340,6 +340,16 @@
         "paid": "Kan kaffalame (Birrii)",
         "credit": "Liqiin kan hafe (Birrii)"
       }
+    },
+    "week": {
+      "title": "Galii torbanii",
+      "link": "Gabaasa torbanii",
+      "pickWeek": "Torban filadhu",
+      "previousWeek": "Torban darbe",
+      "nextWeek": "Torban itti aanu",
+      "thisWeek": "Torban kana",
+      "empty": "Torban kana daawwannaan cufamee kaffalame hin jiru.",
+      "emptyThisWeek": "Torban kana hanga ammaatti daawwannaan cufamee kaffalame hin jiru."
     }
   },
   "owed": {

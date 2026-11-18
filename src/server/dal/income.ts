@@ -1,7 +1,7 @@
 import "server-only";
 import { createClient } from "@/lib/supabase/server";
 import { summarizeIncome, type DailyIncome, type IncomeVisit } from "@/lib/income";
-import { monthRange, summarizeByDay, type EthMonth, type MonthlyIncome } from "@/lib/month-report";
+import { monthRange, summarizeByDay, weekRange, type EthMonth, type MonthlyIncome } from "@/lib/month-report";
 import { getSession } from "./session";
 
 const addisDay = (ts: string) => new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Addis_Ababa" }).format(new Date(ts));
@@ -45,9 +45,7 @@ export async function getDailyIncome(day: string): Promise<DailyIncome | null> {
   return visits ? summarizeIncome(visits) : null;
 }
 
-/** Income for one Ethiopian month: totals, by service and by day. Owner and manager only. */
-export async function getMonthlyIncome(month: EthMonth): Promise<MonthlyIncome | null> {
-  const { from, to } = monthRange(month);
+async function periodIncome(from: string, to: string): Promise<MonthlyIncome | null> {
   const visits = await closedVisits(from, to);
   if (!visits) return null;
   const days = summarizeByDay(
@@ -59,4 +57,16 @@ export async function getMonthlyIncome(month: EthMonth): Promise<MonthlyIncome |
     })),
   );
   return { ...summarizeIncome(visits), days };
+}
+
+/** Income for one Ethiopian month: totals, by service and by day. Owner and manager only. */
+export async function getMonthlyIncome(month: EthMonth): Promise<MonthlyIncome | null> {
+  const { from, to } = monthRange(month);
+  return periodIncome(from, to);
+}
+
+/** Income for one week (Monday to Sunday): totals, by service and by day. Owner and manager only. */
+export async function getWeeklyIncome(monday: string): Promise<MonthlyIncome | null> {
+  const { from, to } = weekRange(monday);
+  return periodIncome(from, to);
 }
