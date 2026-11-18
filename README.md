@@ -8,4 +8,14 @@ Part of **Galmee**, business systems for Ethiopian businesses, by Alpha. Mobile-
 - Backend: Supabase (shared project `galmee`), Postgres RLS per business
 - Payments: Chapa (Telebirr, CBE Birr); SMS: AfroMessage; alerts: Telegram
 
+Live: https://galmee-clinic.vercel.app
+
+## Screens
+
+Phone width (360 px), English, sample data:
+
+| Today's queue | Patient card | Income by service |
+| --- | --- | --- |
+| ![Today's queue](docs/screenshots/queue-en-360.png) | ![Patient card](docs/screenshots/patient-card-en-360.png) | ![Income by service](docs/screenshots/income-en-360.png) |
+
 See `ROADMAP.md` for progress.
