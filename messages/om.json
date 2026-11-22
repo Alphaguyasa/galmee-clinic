@@ -408,6 +408,16 @@
       "appointment_not_found": "Beellamni hin argamne.",
       "invalid": "Guyyaa fi sa'aatii mirkaneessi.",
       "generic": "Rakkoon uumame. Irra deebi'ii yaali."
+    },
+    "reminders": {
+      "waiting": "Dhukkubsattoota beellama qaban {count} yaadachiisni SMS ammallee hin geenye.",
+      "allSent": "Dhukkubsattoonni beellama qaban bilbila qaban hundi yaadachiisa argataniiru.",
+      "send": "Yaadachiisa SMS ergi",
+      "queued": "Yaadachiisni {count} erguuf tarreeffameera.",
+      "noPhone": "Dhukkubsattoonni {count} lakkoofsa bilbilaa hin qaban.",
+      "notAllowed": "Yaadachiisa erguu kan danda'an simannaa, abbaa qabeenyaa ykn hoogganaa qofa.",
+      "error": "Yaadachiisni hin ergamne. Irra deebi'ii yaali.",
+      "sent": "SMS ergameera"
     }
   }
 }

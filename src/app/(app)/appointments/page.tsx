@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { CalendarCheck, CalendarClock, CalendarDays, CalendarX, ChevronLeft, ChevronRight } from "lucide-react";
 import { AppointmentActions } from "@/components/appointment-actions";
+import { SendReminders } from "@/components/send-reminders";
 import { EmptyState } from "@/components/galmee/empty-state";
 import { ListSheet } from "@/components/galmee/list-row";
 import { StatusBadge } from "@/components/galmee/status-badge";
@@ -11,7 +12,9 @@ import { clinicClock, groupByDoctor, pickAppointmentDay, type AppointmentStatus 
 import { formatEthiopianDate } from "@/lib/ethiopian-date";
 import { shiftDay } from "@/lib/income";
 import { cn } from "@/lib/utils";
-import { getAppointmentsForDay, listDoctors } from "@/server/dal/appointments";
+import { getAppointmentsForDay, listDoctors, remindedBookings } from "@/server/dal/appointments";
+import { getClinicalRoles } from "@/server/dal/clinical-roles";
+import { getSession } from "@/server/dal/session";
 import { clinicToday } from "@/server/dal/visits";
 
 export const dynamic = "force-dynamic";
@@ -28,7 +31,20 @@ const BADGE: Record<AppointmentStatus, { tone: "ok" | "sync" | "neutral" | "warn
 export default async function AppointmentsPage({ searchParams }: { searchParams: Promise<{ d?: string }> }) {
   const today = clinicToday();
   const day = pickAppointmentDay((await searchParams).d, today);
-  const [rows, doctors, t, rawLocale] = await Promise.all([getAppointmentsForDay(day), listDoctors(), getTranslations("appointments"), getLocale()]);
+  const [rows, doctors, session, roles, t, rawLocale] = await Promise.all([
+    getAppointmentsForDay(day),
+    listDoctors(),
+    getSession(),
+    getClinicalRoles(),
+    getTranslations("appointments"),
+    getLocale(),
+  ]);
+  const booked = rows.filter((r) => r.status === "booked");
+  const reminded = await remindedBookings(booked.map((r) => r.id));
+  // Reminders go out for today or tomorrow only; reception, the owner and managers send them.
+  const canRemind =
+    (day === today || day === shiftDay(today, 1)) &&
+    (session.profile.role !== "staff" || roles.has("reception"));
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
   const names = new Map(doctors.map((d) => [d.userId, d.fullName]));
   const groups = groupByDoctor(rows, names);
@@ -68,6 +84,10 @@ export default async function AppointmentsPage({ searchParams }: { searchParams:
 
       {doctors.length === 0 ? <p className="text-sm text-muted-foreground">{t("noDoctors")}</p> : null}
 
+      {canRemind && booked.length > 0 ? (
+        <SendReminders day={day} waiting={booked.filter((r) => !reminded.has(r.id)).length} />
+      ) : null}
+
       {groups.length === 0 ? (
         <EmptyState icon={CalendarDays} message={t("empty")} />
       ) : (
@@ -95,6 +115,7 @@ export default async function AppointmentsPage({ searchParams }: { searchParams:
                           #{r.cardNo ?? "—"} · <span className="whitespace-nowrap">{clinicClock(r.startsAt)}–{clinicClock(r.endsAt)}</span>
                         </p>
                         {r.note ? <p className="text-sm break-words">{r.note}</p> : null}
+                        {reminded.has(r.id) ? <p className="text-xs text-muted-foreground">{t("reminders.sent")}</p> : null}
                       </div>
                       <StatusBadge tone={badge.tone} icon={badge.icon}>
                         {t(badge.key)}

@@ -2,7 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { clinicInstant } from "@/lib/appointments";
-import { bookAppointment, setAppointmentStatus, type AppointmentStatusResult, type BookResult } from "@/server/dal/appointments";
+import { z } from "zod";
+import { bookAppointment, queueReminders, setAppointmentStatus, type AppointmentStatusResult, type BookResult, type ReminderResult } from "@/server/dal/appointments";
 import { getSession } from "@/server/dal/session";
 import { appointmentSchema, appointmentStatusSchema } from "@/server/validation";
 
@@ -36,5 +37,16 @@ export async function moveAppointment(input: unknown): Promise<AppointmentStatus
     revalidatePath("/appointments");
     if (parsed.data.status === "checked_in") revalidatePath("/");
   }
+  return result;
+}
+
+const daySchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
+
+export async function sendReminders(day: unknown): Promise<ReminderResult> {
+  const parsed = daySchema.safeParse(day);
+  if (!parsed.success) return { ok: false, code: "badDay" };
+  await getSession();
+  const result = await queueReminders(parsed.data);
+  if (result.ok) revalidatePath("/appointments");
   return result;
 }

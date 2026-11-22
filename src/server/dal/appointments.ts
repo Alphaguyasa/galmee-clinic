@@ -113,3 +113,28 @@ export async function setAppointmentStatus(input: { bookingId: string; status: "
   const { data, error } = await supabase.rpc("cl_set_appointment_status", { p_booking: input.bookingId, p_status: input.status });
   return error ? { ok: false, code: bookingErrorCode(error.message) } : { ok: true, visitId: data ?? null };
 }
+
+/** Which of these appointments already had their reminder SMS queued. */
+export async function remindedBookings(ids: string[]): Promise<Set<string>> {
+  if (ids.length === 0) return new Set();
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase.from("cl_appointment_reminders").select("booking_id").in("booking_id", ids).limit(300);
+  if (error) throw new Error("reminders_failed");
+  return new Set(data.map((r) => r.booking_id));
+}
+
+export type ReminderResult = { ok: true; queued: number; noPhone: number; already: number } | { ok: false; code: string };
+
+/** Queues one SMS per booked appointment on the day (today or tomorrow) that has not had one. Owner, manager or reception. */
+export async function queueReminders(day: string): Promise<ReminderResult> {
+  await getSession();
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("cl_queue_appointment_reminders", { p_day: day });
+  if (error || !data || typeof data !== "object" || Array.isArray(data)) {
+    const msg = error?.message ?? "";
+    return { ok: false, code: msg.includes("not_allowed") ? "notAllowed" : msg.includes("bad_day") ? "badDay" : "generic" };
+  }
+  const d = data as { queued?: number; no_phone?: number; already?: number };
+  return { ok: true, queued: d.queued ?? 0, noPhone: d.no_phone ?? 0, already: d.already ?? 0 };
+}

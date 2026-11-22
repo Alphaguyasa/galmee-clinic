@@ -154,6 +154,33 @@ export type Database = {
           },
         ]
       }
+      cl_appointment_reminders: {
+        Row: {
+          booking_id: string
+          created_at: string
+          created_by: string | null
+          id: string
+          notification_id: string | null
+          tenant_id: string
+        }
+        Insert: {
+          booking_id: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notification_id?: string | null
+          tenant_id?: string
+        }
+        Update: {
+          booking_id?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          notification_id?: string | null
+          tenant_id?: string
+        }
+        Relationships: []
+      }
       cl_attachments: {
         Row: {
           created_at: string
@@ -1449,6 +1476,10 @@ export type Database = {
         Returns: string
       }
       cl_reverse_service: { Args: { p_line: string }; Returns: undefined }
+      cl_queue_appointment_reminders: {
+        Args: { p_day: string }
+        Returns: Json
+      }
       cl_set_appointment_status: {
         Args: { p_booking: string; p_status: string }
         Returns: string

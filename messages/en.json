@@ -408,6 +408,16 @@
       "appointment_not_found": "Appointment not found.",
       "invalid": "Check the date and time.",
       "generic": "Something went wrong. Try again."
+    },
+    "reminders": {
+      "waiting": "{count, plural, one {# booked patient has not had an SMS reminder yet.} other {# booked patients have not had an SMS reminder yet.}}",
+      "allSent": "Every booked patient with a phone has had an SMS reminder.",
+      "send": "Send SMS reminders",
+      "queued": "{count, plural, one {# reminder queued.} other {# reminders queued.}}",
+      "noPhone": "{count, plural, one {# patient has no phone number.} other {# patients have no phone number.}}",
+      "notAllowed": "Only reception, the owner or a manager can send reminders.",
+      "error": "Reminders could not be sent. Try again.",
+      "sent": "SMS sent"
     }
   }
 }

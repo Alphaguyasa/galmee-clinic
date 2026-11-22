@@ -17,7 +17,7 @@
 - [x] Daily income by service screen
 - [x] Patient card (visits, labs, balance) screen, every opening logged
 - [ ] Attachments upload on the patient card
-- [ ] Appointment calendar on `bookings` + day-before SMS rows
+- [x] Appointment calendar on `bookings` + day-before SMS rows
 - [x] Partial payment + statement
 - [x] Telegram-to-doctor on lab completion (notifications row)
 - [x] Clinical role assignment UI (owner)
@@ -63,7 +63,7 @@
 
 ## M3: Notifications
 
-- [ ] SMS appointment reminder the day before
+- [x] SMS appointment reminder the day before (queued; sent once the SMS sender runs)
 - [x] Telegram to doctor when a lab result is ready (queued; sent once the bot sender runs)
 - [ ] Edge Function reads `notifications` queue and sends (needs AfroMessage/Telegram keys: ask in the decision log)
 
