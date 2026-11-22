@@ -10,7 +10,8 @@
     "queue": "Tarree",
     "services": "Gatii",
     "lab": "Laabraatoorii",
-    "staff": "Hojjettoota"
+    "staff": "Hojjettoota",
+    "appointments": "Beellama"
   },
   "common": {
     "language": "Afaan",
@@ -361,5 +362,52 @@
     "days": "Guyyaa {count}",
     "note": "Liqiin durii dursa. Kaffaltii fudhachuuf kaardii bani.",
     "link": "Kan liqii qaban"
+  },
+  "appointments": {
+    "title": "Beellama",
+    "pickDay": "Guyyaa filadhu",
+    "previousDay": "Guyyaa darbe",
+    "nextDay": "Guyyaa itti aanu",
+    "today": "Har'a",
+    "empty": "Guyyaa kana beellamni hin jiru.",
+    "noDoctors": "Ammaaf namni gahee doktoraa qabu hin jiru. Abbaan qabeenyaa fuula Hojjettootaa irratti kennuu danda'a.",
+    "book": "Beellama qabadhu",
+    "doctor": "Doktora",
+    "date": "Guyyaa",
+    "time": "Sa'aatii",
+    "minutes": "Dheerina",
+    "minutesValue": "Daqiiqaa {minutes}",
+    "note": "Yaadannoo simannaaf (dirqama miti)",
+    "noteHint": "Yaadannoo yaalaa miti: namni kilinika keessa jiru hundi ni dubbisa.",
+    "save": "Qabadhu",
+    "cancel": "Cufi",
+    "booked": "{date} sa'aatii {time} qabameera.",
+    "upcoming": "Beellama dhufan",
+    "checkIn": "Dhufeera",
+    "checkedIn": "Seeneera",
+    "noShow": "Hin dhufne",
+    "cancelAppointment": "Haqi",
+    "confirmCancel": "Haquuf irra deebi'ii tuqi",
+    "statusBooked": "Qabameera",
+    "statusCheckedIn": "Seeneera",
+    "statusNoShow": "Hin dhufne",
+    "statusDone": "Xumurameera",
+    "withDoctor": "{name} waliin",
+    "unknownPatient": "Dhukkubsataan hin argamne",
+    "errors": {
+      "doctor_busy": "Doktorichi yeroo sanatti beellama biraa qaba.",
+      "patient_busy": "Dhukkubsataan kun yeroo sanatti beellama biraa qaba.",
+      "doctor_not_found": "Doktora filadhu.",
+      "patient_not_found": "Dhukkubsataan hin argamne.",
+      "in_past": "Yeroon sun darbeera.",
+      "too_far": "Yoo baay'ate waggaa tokkoon dura qabadhu.",
+      "bad_minutes": "Dheerina filadhu.",
+      "not_today": "Galmaa'uun guyyaa beellamaa qofa danda'ama.",
+      "not_yet": "Yeroon beellamaa ammallee hin geenye.",
+      "appointment_closed": "Beellamni kun duraan raawwatameera.",
+      "appointment_not_found": "Beellamni hin argamne.",
+      "invalid": "Guyyaa fi sa'aatii mirkaneessi.",
+      "generic": "Rakkoon uumame. Irra deebi'ii yaali."
+    }
   }
 }

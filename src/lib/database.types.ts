@@ -1398,6 +1398,16 @@ export type Database = {
         }
         Returns: string
       }
+      cl_book_appointment: {
+        Args: {
+          p_doctor: string
+          p_minutes?: number
+          p_note?: string
+          p_patient: string
+          p_starts_at: string
+        }
+        Returns: string
+      }
       cl_close_visit_and_bill: {
         Args: {
           p_close_ref?: string
@@ -1439,6 +1449,10 @@ export type Database = {
         Returns: string
       }
       cl_reverse_service: { Args: { p_line: string }; Returns: undefined }
+      cl_set_appointment_status: {
+        Args: { p_booking: string; p_status: string }
+        Returns: string
+      }
       cl_set_visit_status: {
         Args: { p_status: string; p_visit: string }
         Returns: undefined

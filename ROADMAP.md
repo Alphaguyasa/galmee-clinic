@@ -47,7 +47,7 @@
 
 - [x] Reception queue: today's patients with status (waiting, with doctor, lab, done)
 - [ ] Patient card: history, visits, lab results, attachments
-- [ ] Appointment calendar (core `bookings`, resource = doctor)
+- [x] Appointment calendar (core `bookings`, resource = doctor)
 - [x] Lab request and result entry
 - [x] Daily income by service
 - [x] Migration: cl_patients

@@ -133,3 +133,17 @@ export const labResultsSchema = z.object({
     .max(30)
     .refine((rows) => new Set(rows.map((r) => r.analyte.toLowerCase())).size === rows.length, { message: "duplicate" }),
 });
+
+export const appointmentSchema = z.object({
+  patientId: z.string().uuid(),
+  doctorId: z.string().uuid(),
+  day: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  time: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/),
+  minutes: z.coerce.number().int().refine((m) => [15, 30, 45, 60].includes(m)),
+  note: optionalText(200),
+});
+
+export const appointmentStatusSchema = z.object({
+  bookingId: z.string().uuid(),
+  status: z.enum(["checked_in", "cancelled", "no_show"]),
+});

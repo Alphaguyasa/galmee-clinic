@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, ClipboardList, FlaskConical } from "lucide-react";
+import { ArrowLeft, CalendarClock, ClipboardList, FlaskConical } from "lucide-react";
 import { z } from "zod";
 import { CardNoTab } from "@/components/card-no-tab";
 import { EmptyState } from "@/components/galmee/empty-state";
@@ -18,6 +18,10 @@ import { OPEN_STATUSES } from "@/lib/visit-status";
 import { getClinicalRoles } from "@/server/dal/clinical-roles";
 import { getCardLabs, getCardVisits, getStatement, openPatientCard } from "@/server/dal/patient-card";
 import { PayBalance } from "@/components/pay-balance";
+import { BookAppointment } from "@/components/book-appointment";
+import { clinicClock, clinicDayOf } from "@/lib/appointments";
+import { getUpcomingForPatient, listDoctors } from "@/server/dal/appointments";
+import { clinicToday } from "@/server/dal/visits";
 
 // Every opening of a card is logged, so the page is always rendered fresh.
 export const dynamic = "force-dynamic";
@@ -28,14 +32,18 @@ export default async function PatientCardPage({ params }: { params: Promise<{ id
   const patient = await openPatientCard(id);
   if (!patient) notFound();
 
-  const [roles, visits, statement, t, tPatients, tQueue, tLab, rawLocale] = await Promise.all([
+  const today = clinicToday();
+  const [roles, visits, statement, upcoming, doctors, t, tPatients, tQueue, tLab, tAppt, rawLocale] = await Promise.all([
     getClinicalRoles(),
     getCardVisits(id),
     getStatement(patient.customerId),
+    getUpcomingForPatient(patient.customerId, today),
+    listDoctors(),
     getTranslations("card"),
     getTranslations("patients"),
     getTranslations("queue"),
     getTranslations("lab"),
+    getTranslations("appointments"),
     getLocale(),
   ]);
   const locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
@@ -83,6 +91,32 @@ export default async function PatientCardPage({ params }: { params: Promise<{ id
           )}
         </div>
       </header>
+
+      <section aria-labelledby="appointments" className="grid gap-2">
+        <h2 id="appointments" className="text-lg font-bold">
+          {tAppt("upcoming")}
+        </h2>
+        {upcoming.length > 0 ? (
+          <ListSheet>
+            {upcoming.map((a) => (
+              <ListRow
+                key={a.id}
+                href={`/appointments?d=${clinicDayOf(a.startsAt)}`}
+                mark={<CalendarClock className="size-5 text-sync" aria-hidden />}
+                title={formatEthiopianDate(clinicDayOf(a.startsAt), locale)}
+                sub={
+                  <>
+                    <span className="num">{clinicClock(a.startsAt)}</span>
+                    <span>{tAppt("withDoctor", { name: doctors.find((d) => d.userId === a.doctorId)?.fullName ?? "—" })}</span>
+                    {a.note ? <span className="break-words">{a.note}</span> : null}
+                  </>
+                }
+              />
+            ))}
+          </ListSheet>
+        ) : null}
+        <BookAppointment patientId={patient.id} doctors={doctors} today={today} />
+      </section>
 
       <MoneySummaryCard
         label={t("balance")}

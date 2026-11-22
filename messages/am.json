@@ -10,7 +10,8 @@
     "queue": "ወረፋ",
     "services": "ዋጋዎች",
     "lab": "ላብራቶሪ",
-    "staff": "ሠራተኞች"
+    "staff": "ሠራተኞች",
+    "appointments": "ቀጠሮዎች"
   },
   "common": {
     "language": "ቋንቋ",
@@ -361,5 +362,52 @@
     "days": "{count} ቀን",
     "note": "የቆየ ዕዳ መጀመሪያ። ክፍያ ለመቀበል ካርዱን ይክፈቱ።",
     "link": "ዕዳ ያለባቸው"
+  },
+  "appointments": {
+    "title": "ቀጠሮዎች",
+    "pickDay": "ቀን ይምረጡ",
+    "previousDay": "ያለፈው ቀን",
+    "nextDay": "የሚቀጥለው ቀን",
+    "today": "ዛሬ",
+    "empty": "በዚህ ቀን ቀጠሮ የለም።",
+    "noDoctors": "እስካሁን የሐኪም ሚና የተሰጠው ሰው የለም። ባለቤቱ በሰራተኞች ገጽ ላይ መስጠት ይችላል።",
+    "book": "ቀጠሮ ያስይዙ",
+    "doctor": "ሐኪም",
+    "date": "ቀን",
+    "time": "ሰዓት",
+    "minutes": "ርዝመት",
+    "minutesValue": "{minutes} ደቂቃ",
+    "note": "ለእንግዳ መቀበያ ማስታወሻ (አማራጭ)",
+    "noteHint": "የህክምና ማስታወሻ አይደለም፤ በክሊኒኩ ያለ ሁሉ ያነበዋል።",
+    "save": "አስይዝ",
+    "cancel": "ዝጋ",
+    "booked": "ለ{date} በ{time} ተይዟል።",
+    "upcoming": "የሚመጡ ቀጠሮዎች",
+    "checkIn": "መጥቷል",
+    "checkedIn": "ገብቷል",
+    "noShow": "አልመጣም",
+    "cancelAppointment": "ሰርዝ",
+    "confirmCancel": "ለመሰረዝ እንደገና ይንኩ",
+    "statusBooked": "ተይዟል",
+    "statusCheckedIn": "ገብቷል",
+    "statusNoShow": "አልመጣም",
+    "statusDone": "ተጠናቋል",
+    "withDoctor": "ከ{name} ጋር",
+    "unknownPatient": "ታካሚው አልተገኘም",
+    "errors": {
+      "doctor_busy": "ሐኪሙ በዚያ ሰዓት ሌላ ቀጠሮ አለው።",
+      "patient_busy": "ይህ ታካሚ በዚያ ሰዓት ሌላ ቀጠሮ አለው።",
+      "doctor_not_found": "ሐኪም ይምረጡ።",
+      "patient_not_found": "ታካሚው አልተገኘም።",
+      "in_past": "ያ ሰዓት አልፏል።",
+      "too_far": "ቢበዛ ለአንድ ዓመት ወደፊት ያስይዙ።",
+      "bad_minutes": "ርዝመት ይምረጡ።",
+      "not_today": "መግባት የሚቻለው በቀጠሮው ቀን ብቻ ነው።",
+      "not_yet": "የቀጠሮው ሰዓት ገና አልደረሰም።",
+      "appointment_closed": "ይህ ቀጠሮ ቀድሞ ተስተናግዷል።",
+      "appointment_not_found": "ቀጠሮው አልተገኘም።",
+      "invalid": "ቀኑንና ሰዓቱን ያረጋግጡ።",
+      "generic": "ችግር ተፈጥሯል። እንደገና ይሞክሩ።"
+    }
   }
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ClipboardList, HandCoins, Receipt, Search } from "lucide-react";
+import { ClipboardList, HandCoins, ListChecks, Receipt, Search } from "lucide-react";
+import { getClinicalRoles } from "@/server/dal/clinical-roles";
 import { CardNoTab } from "@/components/card-no-tab";
 import { EmptyState } from "@/components/galmee/empty-state";
 import { ListRow, ListSheet } from "@/components/galmee/list-row";
@@ -16,13 +17,15 @@ const COUNTED = ["waiting", "with_doctor", "lab", "done"] as const;
 
 /** Reception's home: today's bench of patients, in the order they arrived. */
 export default async function QueuePage() {
-  const [session, queue, t, tStatus, tIncome, tOwed, locale] = await Promise.all([
+  const [session, queue, roles, t, tStatus, tIncome, tOwed, tNav, locale] = await Promise.all([
     getSession(),
     getTodayQueue(),
+    getClinicalRoles(),
     getTranslations("queue"),
     getTranslations("queue.status"),
     getTranslations("income"),
     getTranslations("owed"),
+    getTranslations("nav"),
     getLocale(),
   ]);
   const counts = Object.fromEntries(COUNTED.map((s) => [s, queue.filter((v) => v.status === s).length]));
@@ -63,6 +66,13 @@ export default async function QueuePage() {
             <HandCoins aria-hidden />
             {tOwed("link")}
           </Link>
+          {roles.has("lab") ? (
+            // The phone bar has no room for Prices when this person also runs the lab.
+            <Link href="/services" className={cn(buttonVariants({ variant: "outline" }), "w-fit md:hidden")}>
+              <ListChecks aria-hidden />
+              {tNav("services")}
+            </Link>
+          ) : null}
         </div>
       ) : null}
 

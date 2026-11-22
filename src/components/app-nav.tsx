@@ -1,12 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { ClipboardList, FlaskConical, ListChecks, UserCog, Users } from "lucide-react";
+import { CalendarDays, ClipboardList, FlaskConical, ListChecks, UserCog, Users } from "lucide-react";
 import { BottomNav } from "@/components/galmee/bottom-nav";
 
 const ITEMS = [
   { href: "/", key: "queue", icon: ClipboardList, manager: false, lab: false },
   { href: "/patients", key: "patients", icon: Users, manager: false, lab: false },
+  { href: "/appointments", key: "appointments", icon: CalendarDays, manager: false, lab: false },
   { href: "/lab", key: "lab", icon: FlaskConical, manager: false, lab: true },
   { href: "/services", key: "services", icon: ListChecks, manager: false, lab: false },
   { href: "/staff", key: "staff", icon: UserCog, manager: true, lab: false },
@@ -19,7 +20,10 @@ export function AppNav({ variant, canManage, showLab }: { variant: "bottom" | "s
     <BottomNav
       variant={variant}
       menuLabel={t("menu")}
-      items={ITEMS.filter((item) => (canManage || !item.manager) && (showLab || !item.lab)).map(({ href, key, icon }) => ({
+      items={ITEMS.filter((item) => (canManage || !item.manager) && (showLab || !item.lab))
+        // The phone bar holds five; a manager who also runs the lab reaches Prices from the home screen instead.
+        .filter((item, _, all) => variant !== "bottom" || all.length <= 5 || item.key !== "services")
+        .map(({ href, key, icon }) => ({
         href,
         label: t(key),
         icon,

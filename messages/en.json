@@ -10,7 +10,8 @@
     "queue": "Queue",
     "services": "Prices",
     "lab": "Lab",
-    "staff": "Staff"
+    "staff": "Staff",
+    "appointments": "Appointments"
   },
   "common": {
     "language": "Language",
@@ -361,5 +362,52 @@
     "days": "{count} days",
     "note": "Oldest debt first. Open a card to take a payment.",
     "link": "Who owes"
+  },
+  "appointments": {
+    "title": "Appointments",
+    "pickDay": "Pick a day",
+    "previousDay": "Previous day",
+    "nextDay": "Next day",
+    "today": "Today",
+    "empty": "No appointments on this day.",
+    "noDoctors": "No one has the doctor role yet. The owner can give it on the Staff screen.",
+    "book": "Book appointment",
+    "doctor": "Doctor",
+    "date": "Date",
+    "time": "Time",
+    "minutes": "Length",
+    "minutesValue": "{minutes} min",
+    "note": "Note for reception (optional)",
+    "noteHint": "Not a clinical note: everyone at the clinic can read it.",
+    "save": "Book",
+    "cancel": "Close",
+    "booked": "Booked for {date} at {time}.",
+    "upcoming": "Coming appointments",
+    "checkIn": "Check in",
+    "checkedIn": "Checked in",
+    "noShow": "Did not come",
+    "cancelAppointment": "Cancel",
+    "confirmCancel": "Tap again to cancel",
+    "statusBooked": "Booked",
+    "statusCheckedIn": "Checked in",
+    "statusNoShow": "Did not come",
+    "statusDone": "Done",
+    "withDoctor": "With {name}",
+    "unknownPatient": "Patient not found",
+    "errors": {
+      "doctor_busy": "The doctor already has an appointment at that time.",
+      "patient_busy": "This patient already has an appointment at that time.",
+      "doctor_not_found": "Pick a doctor.",
+      "patient_not_found": "Patient not found.",
+      "in_past": "That time has already passed.",
+      "too_far": "Book at most a year ahead.",
+      "bad_minutes": "Pick a length.",
+      "not_today": "You can only check in on the day of the appointment.",
+      "not_yet": "The appointment time has not come yet.",
+      "appointment_closed": "This appointment was already handled.",
+      "appointment_not_found": "Appointment not found.",
+      "invalid": "Check the date and time.",
+      "generic": "Something went wrong. Try again."
+    }
   }
 }
