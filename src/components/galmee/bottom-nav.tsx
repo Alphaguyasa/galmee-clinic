@@ -16,6 +16,9 @@ function isActive(pathname: string, href: string) {
  * trade colour under a 2 px top rule. Bottom tab bar on phones, vertical list
  * in the desktop rail. Items come in as props so the component copies unchanged.
  */
+// Class names, not an inline style: the content security policy blocks style attributes.
+const COLUMNS: Record<number, string> = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4", 5: "grid-cols-5" };
+
 export function BottomNav({ items, menuLabel, variant }: { items: NavItem[]; menuLabel: string; variant: "bottom" | "side" }) {
   const pathname = usePathname();
   return (
@@ -28,8 +31,7 @@ export function BottomNav({ items, menuLabel, variant }: { items: NavItem[]; men
       )}
     >
       <div
-        className={variant === "bottom" ? "grid" : "contents"}
-        style={variant === "bottom" ? { gridTemplateColumns: `repeat(${Math.min(items.length, 5)}, 1fr)` } : undefined}
+        className={variant === "bottom" ? cn("grid", COLUMNS[Math.min(items.length, 5)]) : "contents"}
       >
         {items.map(({ href, label, icon: Icon }) => {
           const active = isActive(pathname, href);
