@@ -149,25 +149,38 @@
   }
 }
 
-/* 58 mm thermal receipt: ReceiptPreview prints alone, everything else hides. */
+/* 58 or 80 mm thermal receipt: ReceiptPreview prints alone, everything else hides. */
 @media print {
-  body:has(.receipt-58) > *:not(:has(.receipt-58)) {
+  @page {
+    margin: 0;
+  }
+  body:has(.receipt-paper) > *:not(:has(.receipt-paper)) {
     display: none !important;
   }
   /* Inside the app shell too: only the receipt and the boxes around it print. */
-  body:has(.receipt-58) *:not(:has(.receipt-58)):not(.receipt-58, .receipt-58 *) {
+  body:has(.receipt-paper) *:not(:has(.receipt-paper)):not(.receipt-paper, .receipt-paper *) {
     display: none !important;
   }
-  body:has(.receipt-58) *:has(.receipt-58) {
+  body:has(.receipt-paper) *:has(.receipt-paper) {
     margin: 0 !important;
     padding: 0 !important;
     border: 0 !important;
     box-shadow: none !important;
     background: #fff !important;
   }
-  .receipt-58 {
-    width: 58mm;
+  .receipt-paper {
+    margin: 0;
+    border: 0;
+    padding: 2mm;
+    max-width: none;
     color: #000;
     background: #fff;
   }
+  .receipt-58 {
+    width: 58mm;
+  }
+  .receipt-80 {
+    width: 80mm;
+  }
 }
+

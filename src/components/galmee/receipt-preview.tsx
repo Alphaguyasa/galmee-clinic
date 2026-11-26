@@ -3,10 +3,12 @@ import { cn } from "@/lib/utils";
 
 export type ReceiptLine = { name: string; qty: string; amount: string };
 
+export type ReceiptWidth = 58 | 80;
+
 /**
- * A 58 mm receipt, on screen and in print: tenant header, dashed rules, item
+ * A 58 or 80 mm receipt, on screen and in print: tenant header, dashed rules, item
  * lines, tabular totals, the Ethiopian date. All strings arrive as props.
- * Printing uses the global `.receipt-58` print rules.
+ * Printing uses the global `.receipt-58` / `.receipt-80` print rules.
  */
 export function ReceiptPreview({
   tenantName,
@@ -15,6 +17,7 @@ export function ReceiptPreview({
   lines,
   totals,
   footer,
+  width = 58,
   className,
 }: {
   tenantName: string;
@@ -25,10 +28,19 @@ export function ReceiptPreview({
   /** e.g. total, paid, change — the last entry is set bold. */
   totals: { label: string; amount: string }[];
   footer?: string;
+  /** Paper width of the clinic's thermal printer. */
+  width?: ReceiptWidth;
   className?: string;
 }) {
   return (
-    <div className={cn("receipt-58 mx-auto w-[58mm] max-w-full border bg-white p-3 text-[0.8125rem] text-black", className)}>
+    <div
+      className={cn(
+        "receipt-paper mx-auto max-w-full border bg-white p-3 text-black",
+        width === 80 ? "receipt-80 w-[80mm] text-sm" : "receipt-58 w-[58mm] text-[0.8125rem]",
+        className,
+      )}
+      data-width={width}
+    >
       <div className="grid justify-items-center gap-0.5 text-center">
         <p className="text-base font-bold break-words">{tenantName}</p>
         <p>{title}</p>
