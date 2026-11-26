@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
-import { ClipboardList, HandCoins, ListChecks, Receipt, Search } from "lucide-react";
+import { ClipboardList, Download, HandCoins, ListChecks, Receipt, Search } from "lucide-react";
 import { getClinicalRoles } from "@/server/dal/clinical-roles";
 import { CardNoTab } from "@/components/card-no-tab";
 import { EmptyState } from "@/components/galmee/empty-state";
@@ -17,7 +17,7 @@ const COUNTED = ["waiting", "with_doctor", "lab", "done"] as const;
 
 /** Reception's home: today's bench of patients, in the order they arrived. */
 export default async function QueuePage() {
-  const [session, queue, roles, t, tStatus, tIncome, tOwed, tNav, locale] = await Promise.all([
+  const [session, queue, roles, t, tStatus, tIncome, tOwed, tNav, tExport, locale] = await Promise.all([
     getSession(),
     getTodayQueue(),
     getClinicalRoles(),
@@ -26,6 +26,7 @@ export default async function QueuePage() {
     getTranslations("income"),
     getTranslations("owed"),
     getTranslations("nav"),
+    getTranslations("export"),
     getLocale(),
   ]);
   const counts = Object.fromEntries(COUNTED.map((s) => [s, queue.filter((v) => v.status === s).length]));
@@ -111,6 +112,19 @@ export default async function QueuePage() {
           ))}
         </ListSheet>
       )}
+
+      {session.profile.role === "owner" ? (
+        <section aria-labelledby="export-all" className="grid gap-2 border-t pt-5 md:max-w-md">
+          <h2 id="export-all" className="text-lg font-bold">
+            {tExport("title")}
+          </h2>
+          <p className="text-sm text-muted-foreground">{tExport("hint")}</p>
+          <a href="/export" download className={cn(buttonVariants({ variant: "outline", size: "lg" }), "justify-self-start")}>
+            <Download className="size-4" aria-hidden />
+            {tExport("button")}
+          </a>
+        </section>
+      ) : null}
     </div>
   );
 }
