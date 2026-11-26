@@ -78,7 +78,7 @@
 
 - [ ] Receipt printing (58/80 mm thermal) and Telegram receipt
 - [ ] Data import from Excel/CSV
-- [ ] Export all tenant data to Excel
+- [x] Export all tenant data to Excel
 - [ ] Error monitoring hook (Sentry, DSN via env)
 - [ ] README: setup, env vars, deploy steps
 
