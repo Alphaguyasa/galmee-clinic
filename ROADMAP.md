@@ -76,7 +76,8 @@
 
 ## M5: Client ready
 
-- [ ] Receipt printing (58/80 mm thermal) and Telegram receipt
+- [x] Receipt printing (58/80 mm thermal)
+- [ ] Telegram receipt
 - [ ] Data import from Excel/CSV
 - [x] Export all tenant data to Excel
 - [ ] Error monitoring hook (Sentry, DSN via env)
